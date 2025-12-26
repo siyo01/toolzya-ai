@@ -1,0 +1,562 @@
+---
+// src/pages/bio_generator.astro
+import SEO from "../components/seo.astro";
+import MainLayout from "../layouts/mainlayout.astro";
+import ToolPage from "../components/toolpagegenerator.astro";
+
+const pageTitle = "AI Bio Generator - Create Multiple Profile Bios";
+const pageDescription =
+  "Generate short profile bios for Instagram, LinkedIn, TikTok, or Twitter from a few keywords. Choose tone and length, then edit to fit your voice.";
+const pageKeywords =
+  "bio generator, profile bio, instagram bio, linkedin bio, short bio generator";
+const canonical = "https://toolzya.com/bio_generator";
+
+// FAQ JSON-LD for SEO (kept simple, safe, truthful)
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is the Bio Generator?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "A tool that creates short profile bios based on keywords or a short description to help you draft ideas quickly.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I choose tone and length?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes — you can select tone options such as Professional, Casual, or Playful to match different platforms.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is my input private?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Toolzya does not store user inputs after they are processed. Avoid pasting sensitive personal or confidential information.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is the generator free?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes — Toolzya offers the Bio Generator for free with reasonable usage limits to keep the service stable for everyone.",
+      },
+    },
+  ],
+};
+---
+
+<!-- inject universal SEO (seo.astro) -->
+<SEO
+  slot="head"
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  canonical={canonical}
+  pageType="SoftwareApplication"
+  extraLd={[faqLd]}
+/>
+
+<style>
+  /* Remove default marker */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* Supaya Alpine tidak flicker */
+  [x-cloak] {
+    display: none !important;
+  }
+
+  /* Wrapper setiap FAQ */
+  .faq-item {
+    padding: 0;
+  }
+
+  /* Tombol FAQ (full width) */
+  .faq-summary {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    transition: background 0.25s ease;
+  }
+
+  /* Hover seluruh bar */
+  .faq-summary:hover {
+    background: rgb(173, 202, 206);
+  }
+
+  /* Teks pertanyaan */
+  .faq-question {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1b263b;
+    text-align: left;
+  }
+
+  .faq-arrow {
+    width: 18px;
+    height: 18px;
+    stroke: #778da9;
+    transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .rotate-180 {
+    transform: rotate(180deg);
+  }
+
+  /* Wrapper collapse – no padding di sini */
+  .faq-body-wrapper {
+    overflow: hidden;
+  }
+
+  .faq-body {
+    padding: 0 1.25rem 1rem 1.25rem;
+    font-size: 14px;
+    color: #415a77;
+    line-height: 1.6;
+  }
+</style>
+
+<MainLayout title={pageTitle} description={pageDescription}>
+  <ToolPage
+    title="AI Bio Generator"
+    description="Create short, memorable profile bios tailored to platform and tone."
+    buttonLabel="Create Bio"
+    tool="bio"
+    placeholder="Enter a topic, interest, or short description…"
+    resultPlaceholder="Your generated bio will appear here."
+    tones={[
+      { label: "Professional", value: "professional" },
+      { label: "Casual", value: "casual" },
+      { label: "Playful", value: "playful" },
+    ]}
+    toneDescriptions={{
+      professional: "Clear, concise, and suitable for resumes or LinkedIn.",
+      casual: "Relaxed and friendly tone for personal bios.",
+      playful: "Fun, creative, and energetic wording.",
+    }}
+  />
+
+  <!-- SEO CONTENT SECTION (matches paraphraser/summarizer style) -->
+  <section class="max-w-5xl mx-auto mt-20 mb-24 px-6 space-y-14">
+    <!-- Intro -->
+    <div class="text-center max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold text-[#0D1B2A] mb-3">
+        What Is a Bio Generator?
+      </h2>
+      <p class="text-[#415A77] leading-relaxed text-[15px]">
+        A bio generator helps you create short profile descriptions from a few
+        keywords or a brief prompt. Toolzya's Bio Generator provides idea
+        starters, customize the suggestions so they reflect your voice and
+        facts.
+      </p>
+    </div>
+
+    <!-- 3-column benefits -->
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- ITEM 1 -->
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <!-- MOBILE: horizontal divider -->
+        <div aria-hidden="true" class="md:hidden mb-4 h-px w-full bg-[#0d3d42]">
+        </div>
+
+        <!-- DESKTOP: vertical divider -->
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 -translate-y-1/2
+           h-32 w-1 rounded-r-md
+           bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Save time
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Generate multiple short bio options in seconds so you can focus on
+            picking and editing the best one.
+          </p>
+        </div>
+      </div>
+
+      <!-- ITEM 2 -->
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <!-- MOBILE: horizontal divider -->
+        <div aria-hidden="true" class="md:hidden mb-4 h-px w-full bg-[#0d3d42]">
+        </div>
+
+        <!-- DESKTOP: vertical divider -->
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 -translate-y-1/2
+           h-32 w-1 rounded-r-md
+           bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Match platform tone
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Choose tones like Professional, Casual, or Playful to better fit
+            LinkedIn, Instagram, or other platforms.
+          </p>
+        </div>
+      </div>
+
+      <!-- ITEM 3 -->
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <!-- MOBILE: horizontal divider -->
+        <div aria-hidden="true" class="md:hidden mb-4 h-px w-full bg-[#0d3d42]">
+        </div>
+
+        <!-- DESKTOP: vertical divider -->
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 -translate-y-1/2
+           h-32 w-1 rounded-r-md
+           bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Inspiration & variation
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Use generated bios as a starting point to spark ideas and create a
+            unique, personal description.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Good use cases vs limitations (Bio Generator) -->
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Can Do -->
+      <div class="bg-white border border-[#E0E4EA] rounded-2xl p-6 shadow-sm">
+        <h3 class="text-lg font-semibold text-[#1B263B] mb-4">
+          What Toolzya Bio Generator can do
+        </h3>
+
+        <div class="space-y-4 text-[14px] text-[#415A77] leading-relaxed">
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: id badge (profile snippet) -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <rect
+                  x="3"
+                  y="3"
+                  width="18"
+                  height="18"
+                  rx="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></rect>
+                <circle
+                  cx="12"
+                  cy="9"
+                  r="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></circle>
+                <path
+                  d="M7 17c1.5-1.5 4.5-1.5 6 0"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Create short bios suitable for social profiles or concise "about"
+              lines.
+            </p>
+          </div>
+
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: lightbulb (ideas & hooks) -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 18h6" stroke-linecap="round" stroke-linejoin="round"
+                ></path>
+                <path
+                  d="M10 22h4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path
+                  d="M12 2a6 6 0 00-4 10c0 2 1 3 1.5 3.5V17h5v-1.5c.5-.5 1.5-1.5 1.5-3.5A6 6 0 0012 2z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Provide varied phrasing and short hooks to help your profile stand
+              out.
+            </p>
+          </div>
+
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: edit + spark (editable suggestions) -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path
+                  d="M20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Offer editable suggestions. Personalize before publishing for best
+              results.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Limitations -->
+      <div class="bg-white border border-[#E0E4EA] rounded-2xl p-6 shadow-sm">
+        <h3 class="text-lg font-semibold text-[#1B263B] mb-4">
+          Things to Keep in Mind
+        </h3>
+
+        <div class="space-y-4 text-[14px] text-[#415A77] leading-relaxed">
+          <div class="flex gap-3 items-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: shield-alert (privacy caution) -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 2l7 4v5c0 5-3.8 9.7-7 11-3.2-1.3-7-6-7-11V6l7-4z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path d="M12 8v4" stroke-linecap="round" stroke-linejoin="round"
+                ></path>
+                <path
+                  d="M12 16h.01"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Generated bios are suggestions. Verify and remove any incorrect or
+              sensitive info before using.
+            </p>
+          </div>
+
+          <div class="flex gap-3 items-start mt-4">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: eye-off / hidden (don't paste sensitive IDs) -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M2 2l20 20"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path
+                  d="M17.94 17.94A10.96 10.96 0 0112 20c-5 0-9.27-3.11-11-8 1.02-2.93 3.03-5.3 5.61-6.64"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path
+                  d="M9.88 9.88A3 3 0 0114.12 14.12"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Avoid pasting personal IDs or confidential details
+            </p>
+          </div>
+
+          <div class="flex gap-3 items-start mt-4">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: clipboard-check (verify originality) -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <rect
+                  x="9"
+                  y="2"
+                  width="6"
+                  height="4"
+                  rx="1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></rect>
+                <path
+                  d="M9 7H7a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V9a2 2 0 00-2-2h-2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path
+                  d="M9 13l2 2 4-4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Make edits to ensure originality and that the bio reflects your
+              true details.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Section (visible to users; same content as JSON-LD) -->
+    <div class="mt-16" x-data>
+      <h2 class="text-2xl font-bold text-[#0D1B2A] text-center mb-6">
+        Frequently Asked Questions (FAQ)
+      </h2>
+
+      <div
+        class="max-w-3xl mx-auto bg-white/70 backdrop-blur-sm border border-[#E0E4EA] rounded-2xl shadow-sm divide-y divide-[#E0E4EA] overflow-hidden"
+      >
+        <!-- FAQ 1 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question">What is the Bio Generator?</span>
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              It creates short bio suggestions from a few keywords or a short
+              description to help you draft profiles quickly.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question">Can I choose tone and length?</span>
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Yes. Select a tone such as Professional, Casual, or Playful to
+              better match the platform or mood.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question">Is my input private?</span>
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Toolzya does not store user inputs after they are processed. Avoid
+              pasting sensitive personal or confidential information.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question">Is the generator free?</span>
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Yes. The Bio Generator is free with reasonable usage limits to
+              help keep the service available for all users.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>

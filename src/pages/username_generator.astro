@@ -1,0 +1,552 @@
+---
+// src/pages/username_generator.astro
+import SEO from "../components/seo.astro";
+import MainLayout from "../layouts/mainlayout.astro";
+import ToolPage from "../components/toolpagegenerator.astro";
+
+const pageTitle = "AI Username Generator - Create Unique Usernames";
+const pageDescription =
+  "Generate unique username ideas from keywords or interests. Toolzya Username Generator helps you create simple, creative, or professional usernames for various platforms.";
+const pageKeywords =
+  "username generator, ai username generator, unique username ideas, social media username, gaming username, brand username";
+const canonical = "https://toolzya.com/username_generator";
+
+// FAQ JSON-LD for this page (passed into seo.astro via extraLd)
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is a Username Generator?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "A username generator creates username ideas based on keywords, interests, or short phrases. Toolzya Username Generator provides inspiration you can customize for different platforms.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is the generated username guaranteed to be available?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. Generated usernames are suggestions only. Availability depends on the platform, so you should always check availability manually before using.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I use the usernames for any platform?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. You can use the username ideas for social media, gaming accounts, forums, or personal branding, as long as they follow the platform’s rules.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is Toolzya Username Generator free to use?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Toolzya offers the Username Generator for free with reasonable usage limits to keep the service stable for everyone.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Does Toolzya store my input?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Toolzya does not store user inputs after processing. Avoid entering sensitive personal or confidential information.",
+      },
+    },
+  ],
+};
+---
+
+<!-- inject seo metadata + json-ld -->
+<SEO
+  slot="head"
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  canonical={canonical}
+  pageType="SoftwareApplication"
+  extraLd={[faqLd]}
+/>
+
+<head slot="head">
+  <style>
+    /* Remove default marker */
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    /* Prevent Alpine flicker */
+    [x-cloak] {
+      display: none !important;
+    }
+
+    /* FAQ styles (match other tool pages) */
+    .faq-item {
+      padding: 0;
+    }
+
+    .faq-summary {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      outline: none;
+      transition: background 0.25s ease;
+    }
+
+    .faq-summary:hover {
+      background: rgb(173, 202, 206);
+    }
+
+    .faq-question {
+      font-size: 15px;
+      font-weight: 500;
+      color: #1b263b;
+      text-align: left;
+    }
+
+    .faq-arrow {
+      width: 18px;
+      height: 18px;
+      stroke: #778da9;
+      transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .rotate-180 {
+      transform: rotate(180deg);
+    }
+
+    .faq-body-wrapper {
+      overflow: hidden;
+    }
+
+    .faq-body {
+      padding: 0 1.25rem 1rem 1.25rem;
+      font-size: 14px;
+      color: #415a77;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<MainLayout title={pageTitle} description={pageDescription}>
+  <ToolPage
+    title="AI Username Generator"
+    description="Generate unique username ideas based on keywords or interests."
+    tool="username"
+    buttonLabel="Generate Username"
+    placeholder="Enter keywords, interests, or name…"
+    resultPlaceholder="Your generated username will appear here."
+    tones={[
+      { label: "Simple", value: "simple" },
+      { label: "Creative", value: "creative" },
+      { label: "Professional", value: "professional" },
+    ]}
+    toneDescriptions={{
+      simple: "Short, clean, and easy-to-read usernames.",
+      creative: "More playful and unique username combinations.",
+      professional: "Suitable for business, portfolios, or branding.",
+    }}
+  />
+
+  <!-- SEO CONTENT SECTION (matching transform tools style) -->
+  <section class="max-w-5xl mx-auto mt-20 mb-24 px-6 space-y-14">
+    <!-- Intro -->
+    <div class="text-center max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold text-[#0D1B2A] mb-3">
+        What Is a Username Generator?
+      </h2>
+      <p class="text-[#415A77] leading-relaxed text-[15px]">
+        A username generator helps you create unique username ideas based on
+        keywords, interests, or short phrases. Toolzya Username Generator
+        provides suggestion ideas you can customize and use across different
+        platforms.
+      </p>
+    </div>
+
+    <!-- 3-column benefits -->
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <!-- MOBILE: horizontal divider -->
+        <div aria-hidden="true" class="md:hidden mb-4 h-px w-full bg-[#0d3d42]">
+        </div>
+
+        <!-- DESKTOP: vertical divider -->
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 -translate-y-1/2
+           h-32 w-1 rounded-r-md
+           bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Save time
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Generate multiple username ideas instantly instead of brainstorming
+            manually.
+          </p>
+        </div>
+      </div>
+
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <!-- MOBILE: horizontal divider -->
+        <div aria-hidden="true" class="md:hidden mb-4 h-px w-full bg-[#0d3d42]">
+        </div>
+
+        <!-- DESKTOP: vertical divider -->
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 -translate-y-1/2
+           h-32 w-1 rounded-r-md
+           bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Flexible style
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Choose simple, creative, or professional styles to match different
+            platforms.
+          </p>
+        </div>
+      </div>
+
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <!-- MOBILE: horizontal divider -->
+        <div aria-hidden="true" class="md:hidden mb-4 h-px w-full bg-[#0d3d42]">
+        </div>
+
+        <!-- DESKTOP: vertical divider -->
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 -translate-y-1/2
+           h-32 w-1 rounded-r-md
+           bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Platform-ready
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Use username ideas for social media, gaming, forums, or personal
+            branding.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Good use cases vs limitations -->
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Can Do -->
+      <div class="bg-white border border-[#E0E4EA] rounded-2xl p-6 shadow-sm">
+        <h3 class="text-lg font-semibold text-[#1B263B] mb-4">
+          What Toolzya Username Generator can do
+        </h3>
+        <div class="space-y-4 text-[14px] text-[#415A77] leading-relaxed">
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: user + spark -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+                <path
+                  d="M18 8l1 1 2-2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Generate username ideas based on keywords or interests.
+            </p>
+          </div>
+
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: layers -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 2l9 5-9 5-9-5 9-5z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path
+                  d="M3 12l9 5 9-5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path
+                  d="M3 17l9 5 9-5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Create multiple variations for inspiration.
+            </p>
+          </div>
+
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: apps / platforms -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Provide usernames suitable for social media, gaming, or branding.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Limitations -->
+      <div class="bg-white border border-[#E0E4EA] rounded-2xl p-6 shadow-sm">
+        <h3 class="text-lg font-semibold text-[#1B263B] mb-4">
+          Things to Keep in Mind
+        </h3>
+
+        <div class="space-y-4 text-[14px] text-[#415A77] leading-relaxed">
+          <div class="flex gap-3 items-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: edit -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 20h9"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path
+                  d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Usernames are suggestions and may need adjustment to match your
+              needs.
+            </p>
+          </div>
+
+          <div class="flex gap-3 items-start mt-4">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: forbidden -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="12" cy="12" r="9"></circle>
+                <path
+                  d="M5 5l14 14"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Not suitable for sensitive, legal, or trademark-protected names.
+            </p>
+          </div>
+
+          <div class="flex gap-3 items-start mt-4">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: checklist -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M2 12l5 5L17 7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Always verify originality and suitability before publishing.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="mt-16" x-data>
+      <h2 class="text-2xl font-bold text-[#0D1B2A] text-center mb-6">
+        Frequently Asked Questions
+      </h2>
+
+      <div
+        class="max-w-3xl mx-auto bg-white/70 backdrop-blur-sm border border-[#E0E4EA] rounded-2xl shadow-sm divide-y divide-[#E0E4EA] overflow-hidden"
+      >
+        <!-- FAQ 1 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question">What is a Username Generator?</span>
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              It generates username ideas based on keywords or interests to help
+              you find inspiration quickly.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question"
+              >Are the usernames guaranteed to be available?</span
+            >
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              No. Usernames are suggestions only. Availability depends on the
+              platform, so you should check manually before using.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question"
+              >Can I use the usernames for social media or gaming?</span
+            >
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Yes. The generated usernames can be used for social media, gaming
+              accounts, forums, or personal projects.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question">Is the Username Generator free?</span>
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Yes. Toolzya Username Generator is free to use with reasonable
+              limits.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question">Is my input private?</span>
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Toolzya does not store user input after processing. Avoid entering
+              sensitive personal information.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>

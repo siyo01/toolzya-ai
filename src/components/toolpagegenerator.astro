@@ -1,0 +1,815 @@
+---
+type Tone = { label: string; value: string };
+
+const {
+  title = "Toolzya AI Tool",
+  description = "",
+  buttonLabel = "Generate",
+  placeholder = "Enter a topic or keyword…",
+  resultPlaceholder = "Your generated results will appear here.",
+  tool = "",
+  tones = null as Tone[] | null,
+  toneDescriptions = {},
+  lengthDescriptions = {
+    short: "Short, concise output.",
+    medium: "Balanced length for general use.",
+    long: "More descriptive and extended output.",
+  },
+} = Astro.props;
+---
+
+<section class="mb-10 text-center">
+  <h1 class="text-3xl md:text-4xl font-bold text-[#0D1B2A]">{title}</h1>
+  <p class="mt-2 text-[#415A77] max-w-2xl mx-auto leading-relaxed">
+    {description}
+  </p>
+</section>
+
+<div
+  id="tool-root"
+  class="bg-white shadow-[0_6px_22px_rgba(0,0,0,0.06)] border border-[#E0E4EA]
+         rounded-2xl p-6 md:p-8 space-y-8"
+  data-tool={tool}
+>
+  {/* Tone + Slider Row */}
+  <div
+    class="flex flex-col md:flex-row md:items-center md:justify-between gap-8"
+  >
+    {/* Tone Buttons */}
+    {
+      tones && (
+        <div>
+          <span class="text-sm font-semibold text-[#1B263B]">Tone</span>
+
+          <div class="flex flex-wrap gap-3 mt-2">
+            {(tones as Tone[]).map((t: Tone, index: number) => (
+              <label class=" relative inline-flex items-center cursor-pointer group">
+                <input
+                  type="radio"
+                  name="tone"
+                  value={t.value}
+                  class="sr-only peer"
+                  checked={index === 0}
+                />
+                <span
+                  class="tone-option px-4 py-1.5 rounded-full text-sm font-medium
+                     border border-[#C6D0DB] bg-white text-[#1B263B] shadow-sm
+                     transition-all duration-150 cursor-pointer"
+                >
+                  {t.label}
+                </span>
+
+                <div
+                  class="absolute left-1/2 -translate-x-1/2 top-full mt-2
+         bg-[#1B263B] text-white text-[11px] rounded-md shadow-lg
+         opacity-0 group-hover:opacity-100 pointer-events-none
+         transition duration-200 text-center z-20
+         px-3 py-2 whitespace-nowrap"
+                >
+                  {toneDescriptions[t.value] || "No description available"}
+
+                  <div
+                    class="absolute -top-1 left-1/2 -translate-x-1/2
+           w-3 h-3 bg-[#1B263B] rotate-45
+           opacity-0 group-hover:opacity-100 transition duration-200"
+                  />
+                </div>
+              </label>
+            ))}
+          </div>
+        </div>
+      )
+    }
+
+    {/* Custom Slider */}
+    <div class="w-full md:w-56 md:text-right">
+      <span class="text-sm font-semibold text-[#1B263B] block mb-3">Length</span
+      >
+
+      <div
+        id="slider-track"
+        class="relative w-full h-6 z-[50] select-none inline-block cursor-pointer group"
+      >
+        {/* Base Track */}
+        <div
+          id="track-bg"
+          class="absolute top-1/2 left-0 right-0 h-[6px] bg-[#E5E7EB] rounded-full -translate-y-1/2"
+        >
+        </div>
+
+        {/* Active Track Fill */}
+        <div
+          id="track-fill"
+          class="absolute top-1/2 left-0 h-[6px] bg-[#1B263B] rounded-full -translate-y-1/2"
+          style="width: 50%;"
+        >
+        </div>
+
+        {/* Dots */}
+        <div
+          class="absolute top-1/2 left-0 w-full flex justify-between -translate-y-1/2 px-[0px]"
+        >
+          {/* DOT 1 + Tooltip */}
+          <div id="dot1" class="slider-dot relative group">
+            <div
+              class="absolute left-1/2 -translate-x-1/2 top-full mt-3
+             bg-[#1B263B] text-white text-[11px] rounded-md shadow-lg
+             opacity-0 group-hover:opacity-100 pointer-events-none
+             transition duration-200 text-center z-[60]
+             px-3 py-2 whitespace-normal"
+            >
+              {lengthDescriptions.short}
+              <div
+                class="absolute -top-1 left-1/2 -translate-x-1/2
+               w-3 h-3 bg-[#1B263B] rotate-45"
+              >
+              </div>
+            </div>
+          </div>
+
+          {/* DOT 2 + Tooltip */}
+          <div id="dot2" class="slider-dot relative group">
+            <div
+              class="absolute left-1/2 -translate-x-1/2 top-full mt-3
+             bg-[#1B263B] text-white text-[11px] rounded-md shadow-lg
+             opacity-0 group-hover:opacity-100 pointer-events-none
+             transition duration-200 text-center z-[60]
+             px-3 py-2 whitespace-normal"
+            >
+              {lengthDescriptions.medium}
+              <div
+                class="absolute -top-1 left-1/2 -translate-x-1/2
+               w-3 h-3 bg-[#1B263B] rotate-45"
+              >
+              </div>
+            </div>
+          </div>
+
+          {/* DOT 3 + Tooltip */}
+          <div id="dot3" class="slider-dot relative group">
+            <div
+              class="absolute left-1/2 -translate-x-1/2 top-full mt-3
+             bg-[#1B263B] text-white text-[11px] rounded-md shadow-lg
+             opacity-0 group-hover:opacity-100 pointer-events-none
+             transition duration-200 text-center z-[60]
+             px-3 py-2 whitespace-normal"
+            >
+              {lengthDescriptions.long}
+              <div
+                class="absolute -top-1 left-1/2 -translate-x-1/2
+               w-3 h-3 bg-[#1B263B] rotate-45"
+              >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Thumb */}
+        <div id="slider-thumb" class="slider-thumb"></div>
+      </div>
+
+      <div class="flex justify-between text-xs text-[#415A77] mt-2">
+        <span>Short</span>
+        <span>Medium</span>
+        <span>Long</span>
+      </div>
+    </div>
+  </div>
+
+  {/* Input */}
+  <div>
+    <div>
+      <span class="text-sm font-semibold text-[#1B263B]">Input</span>
+
+      {/* INPUT WRAPPER — seperti output card */}
+      <div
+        class="input-wrapper relative mt-2 rounded-xl border border-[#C6D0DB]/60 bg-white
+           shadow-[inset_0_1px_4px_rgba(0,0,0,0.03)]"
+      >
+        {/* Actual input field */}
+        <textarea
+          id="input"
+          rows="3"
+          class="w-full resize-none rounded-xl
+         px-4 py-4 pr-20
+         text-sm text-[#1B263B]
+         bg-transparent
+         leading-relaxed
+         overflow-hidden
+         focus:outline-none"
+          placeholder={placeholder}></textarea>
+
+        {/* Buttons inside the input field */}
+        <div class="absolute right-3 top-7.5 -translate-y-1/2 flex gap-2">
+          {/* Paste */}
+          <button
+            id="paste-btn"
+            class="p-1.5 rounded-md bg-[#E2E8F0]
+               hover:bg-[#d4dbe6] transition active:scale-95
+               flex items-center justify-center cursor-pointer"
+            aria-label="Paste"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="h-3.5 w-3.5 opacity-70"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 
+            0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 
+            0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 
+            0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 
+            1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 
+            2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 
+            1.907-2.185a48.208 48.208 0 011.927-.184"
+              ></path>
+            </svg>
+          </button>
+          {/* Clear */}
+          <button
+            id="clear-btn"
+            class="p-1.5 rounded-md bg-[#E2E8F0]
+               hover:bg-[#d4dbe6] transition active:scale-95
+               flex items-center justify-center cursor-pointer hidden-force"
+            aria-label="Clear"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="h-3.5 w-3.5 opacity-70"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Generate button + word count */}
+      <div
+        class="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"
+      >
+        <button
+          id="generate-btn"
+          data-tool={tool}
+          class="px-7 py-3 rounded-xl bg-[#1B263B] text-white font-semibold text-sm shadow-md
+             hover:bg-[#0D1B2A] transition active:scale-[0.98] cursor-pointer"
+        >
+          {buttonLabel}
+        </button>
+
+        <p id="word-count" class="text-[11px] text-[#778DA9]">0 / 25 words</p>
+      </div>
+    </div>
+  </div>
+
+  {/* Output */}
+  <div>
+    <span class="text-sm font-semibold text-[#1B263B]">Output</span>
+
+    <div class="mt-3 space-y-4" id="output-container">
+      {
+        Array.from({ length: 3 }).map((_, i) => (
+          <div
+            class="output-card relative rounded-xl border border-dashed border-[#C6D0DB]
+                 bg-[#FAFBFC] px-4 py-4 text-sm text-[#415A77]
+                 shadow-[inset_0_1px_4px_rgba(0,0,0,0.03)]"
+          >
+            {/* Copy Button */}
+            <button
+              class="copy-btn absolute top-3 right-3 p-1.5 rounded-md bg-[#E2E8F0]
+                   hover:bg-[#d4dbe6] transition active:scale-95 flex items-center cursor-pointer hidden-force"
+              aria-label="Copy"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="#1B263B"
+                class="w-4 h-4 opacity-70"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8 16H6a2 2 0 01-2-2V6a2 2 
+                   0 012-2h8a2 2 
+                   0 012 2v2m-4 12h8a2 2 
+                   0 002-2v-6a2 2 
+                   0 00-2-2h-6a2 2 
+                   0 00-2 2v6a2 2 
+                   0 002 2z"
+                />
+              </svg>
+            </button>
+
+            {/* Shimmer */}
+            <div class="ai-shimmer hidden" />
+
+            {/* Text */}
+            <p class="output-text min-h-[2.75rem] leading-relaxed pr-10">
+              <span class="output-placeholder opacity-60">
+                {resultPlaceholder}
+              </span>
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+  <div id="toast" class="toast">Copied!</div>
+</div>
+
+<style>
+  textarea::placeholder {
+    line-height: 1.5;
+  }
+
+  .input-wrapper {
+    transition: 0.18s ease;
+  }
+
+  .input-wrapper:focus-within {
+    border-color: #778da9;
+    box-shadow: 0 0 0 2px rgba(119, 141, 169, 0.25);
+  }
+
+  .input-wrapper:hover {
+    border-color: #778da9;
+    box-shadow: 0 0 0 2px rgba(119, 141, 169, 0.25);
+  }
+
+  .input-wrapper.error {
+    border-color: #dc2626 !important;
+    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2) !important;
+  }
+  .input-wrapper:focus-within:not(.error) {
+    border-color: #778da9;
+    box-shadow: 0 0 0 2px rgba(119, 141, 169, 0.25);
+  }
+
+  .input-wrapper:hover:not(.error) {
+    border-color: #afc2d4;
+  }
+
+  .shake {
+    animation: shakeAnim 0.3s ease;
+  }
+
+  /* PREMIUM TONE BUTTON — compatible with peer system */
+  .tone-option {
+    transition: all 0.22s ease;
+    border: 1px solid #c6d0db;
+    background: white;
+    color: #1b263b;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .tone-option:hover {
+    background: #eef3f7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .peer:checked + .tone-option {
+    background: #1b263b;
+    color: white;
+    border-color: #1b263b;
+    box-shadow: 0 6px 16px rgba(27, 38, 59, 0.28);
+    transform: translateY(-2px);
+  }
+
+  .tone-option:active {
+    transform: translateY(0) scale(0.97);
+  }
+
+  /* CUSTOM SLIDER */
+  #slider-track {
+    position: relative;
+    height: 24px;
+  }
+
+  .slider-dot {
+    width: 14px;
+    height: 14px;
+    background: #c7cdd7;
+    border-radius: 999px;
+    display: inline-block;
+  }
+
+  .slider-thumb {
+    position: absolute;
+    top: 50%;
+    width: 22px;
+    height: 22px;
+    background: #1b263b;
+    border-radius: 999px;
+    transform: translate(-50%, -50%);
+    transition: left 0.25s ease;
+    cursor: pointer;
+  }
+
+  .output-text {
+    white-space: normal;
+    overflow: visible;
+  }
+
+  @keyframes shakeAnim {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-3px);
+    }
+    50% {
+      transform: translateX(3px);
+    }
+    75% {
+      transform: translateX(-3px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  .ai-shimmer {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 40%, #f1f5f9 80%);
+    background-size: 200% 100%;
+    animation: shimmerAnim 1.5s infinite;
+    z-index: 10;
+  }
+
+  @keyframes shimmerAnim {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: #1b263b;
+    color: #fff;
+    padding: 10px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+    z-index: 9999;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .hidden-force {
+    display: none !important;
+  }
+</style>
+
+<script is:inline>
+  /* ------------------- CUSTOM SLIDER (with track-fill) ------------------- */
+
+  const sliderTrack = document.getElementById("slider-track");
+  const sliderThumb = document.getElementById("slider-thumb");
+
+  const trackFill = document.getElementById("track-fill");
+
+  const dot1 = document.getElementById("dot1");
+  const dot2 = document.getElementById("dot2");
+  const dot3 = document.getElementById("dot3");
+
+  let selectedValue = 2;
+
+  function updateFill() {
+    if (selectedValue === 1) trackFill.style.width = "0%";
+    if (selectedValue === 2) trackFill.style.width = "50%";
+    if (selectedValue === 3) trackFill.style.width = "100%";
+  }
+
+  function getDotCenter(dot) {
+    return dot.offsetLeft + dot.offsetWidth / 2;
+  }
+
+  function moveThumb() {
+    const dots = [dot1, dot2, dot3];
+    const target = dots[selectedValue - 1];
+    sliderThumb.style.left = getDotCenter(target) + "px";
+  }
+
+  function updateDots() {
+    dot1.style.background = selectedValue >= 1 ? "#1B263B" : "#C7CDD7";
+    dot2.style.background = selectedValue >= 2 ? "#1B263B" : "#C7CDD7";
+    dot3.style.background = selectedValue >= 3 ? "#1B263B" : "#C7CDD7";
+  }
+
+  updateDots();
+  updateFill();
+  moveThumb();
+
+  sliderTrack.addEventListener("click", (e) => {
+    const rect = sliderTrack.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+
+    const dots = [dot1, dot2, dot3];
+
+    let closest = 1;
+    let minDist = Infinity;
+
+    dots.forEach((dot, i) => {
+      const dist = Math.abs(getDotCenter(dot) - clickX);
+      if (dist < minDist) {
+        minDist = dist;
+        closest = i + 1;
+      }
+    });
+
+    selectedValue = closest;
+    updateDots();
+    updateFill();
+    moveThumb();
+  });
+
+  sliderThumb.addEventListener("mousedown", () => {
+    const move = (ev) => {
+      const rect = sliderTrack.getBoundingClientRect();
+      const pos = ev.clientX - rect.left;
+
+      const dots = [dot1, dot2, dot3];
+
+      let closest = 1;
+      let minDist = Infinity;
+
+      dots.forEach((dot, i) => {
+        const dist = Math.abs(getDotCenter(dot) - pos);
+        if (dist < minDist) {
+          minDist = dist;
+          closest = i + 1;
+        }
+      });
+
+      selectedValue = closest;
+      updateDots();
+      updateFill();
+      moveThumb();
+    };
+
+    const stop = () => {
+      window.removeEventListener("mousemove", move);
+      window.removeEventListener("mouseup", stop);
+    };
+
+    window.addEventListener("mousemove", move);
+    window.addEventListener("mouseup", stop);
+  });
+
+  window.addEventListener("resize", () => {
+    requestAnimationFrame(() => {
+      moveThumb();
+      updateFill();
+    });
+  });
+
+  /* ------------------- WORD COUNTER + COLOR FEEDBACK + AUTO EXPAND ------------------- */
+
+  const inputField = document.getElementById("input");
+  const wordCountEl = document.getElementById("word-count");
+  const clearBtn = document.getElementById("clear-btn");
+
+  const MAX_WORDS = 25;
+
+  inputField.addEventListener("input", () => {
+    // AUTO GROW
+    inputField.style.height = "auto";
+    inputField.style.height = Math.min(inputField.scrollHeight, 220) + "px";
+
+    // WORD COUNT
+    let words = inputField.value.trim().split(/\s+/).filter(Boolean);
+    let count = words.length;
+    wordCountEl.textContent = `${count} / ${MAX_WORDS} words`;
+
+    // CLEAR BUTTON
+    if (inputField.value.trim().length > 0) {
+      clearBtn.classList.remove("hidden-force");
+    } else {
+      clearBtn.classList.add("hidden-force");
+    }
+
+    // COLOR FEEDBACK
+    if (count >= MAX_WORDS) {
+      wordCountEl.style.color = "#C44141";
+    } else if (count >= MAX_WORDS - 7) {
+      wordCountEl.style.color = "#D4A53A";
+    } else {
+      wordCountEl.style.color = "#778DA9";
+    }
+  });
+
+  /* ------------------- PASTE BUTTON ------------------- */
+
+  document.getElementById("paste-btn").addEventListener("click", async () => {
+    const txt = await navigator.clipboard.readText();
+    inputField.value = txt;
+    inputField.dispatchEvent(new Event("input"));
+    navigator.clipboard.writeText(txt);
+  });
+
+  /* ------------------- CLEAR BUTTON ------------------- */
+
+  document.getElementById("clear-btn").addEventListener("click", () => {
+    inputField.value = "";
+    inputField.style.height = "auto";
+    wordCountEl.textContent = `0 / ${MAX_WORDS} words`;
+    wordCountEl.style.color = "#778DA9";
+    clearBtn.classList.add("hidden-force");
+  });
+
+  /* --------------------- COPY BUTTON --------------------- */
+
+  const cards = [...document.querySelectorAll(".output-card")];
+  const placeholders = cards.map((c) => c.querySelector(".output-placeholder"));
+  const texts = cards.map((c) => c.querySelector(".output-text"));
+  const shimmers = cards.map((c) => c.querySelector(".ai-shimmer"));
+  const copyButtons = [...document.querySelectorAll(".copy-btn")];
+
+  const toast = document.getElementById("toast");
+
+  function showToast(msg) {
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 1500);
+  }
+
+  copyButtons.forEach((btn, idx) => {
+    btn.addEventListener("click", () => {
+      const text = texts[idx].innerText.trim();
+      if (!text) return;
+
+      navigator.clipboard.writeText(text);
+      showToast("Copied!");
+    });
+  });
+
+  /* --------------------- TYPE EFFECT --------------------- */
+  function typeText(el, text) {
+    el.textContent = "";
+    let i = 0;
+    const finalText = text;
+    const timer = setInterval(() => {
+      el.textContent += finalText.charAt(i);
+      i++;
+      if (i >= finalText.length) clearInterval(timer);
+    }, 15);
+  }
+
+  /* --------------------- GENERATE OUTPUT --------------------- */
+  const root = document.getElementById("tool-root");
+  const btn = document.getElementById("generate-btn");
+  const inputWrapper = document.querySelector(".input-wrapper");
+  const originalButtonLabel = btn.textContent;
+  const text = sanitizeInput(inputField.value);
+
+  inputField.addEventListener("input", () => {
+    inputWrapper.classList.remove("error");
+  });
+
+  function sanitizeInput(str) {
+    return str.replace(/[<>]/g, "").trim();
+  }
+
+  function showInputError(message) {
+    inputWrapper.classList.add("error");
+    inputField.classList.add("shake");
+    showToast(message);
+
+    // stop shake cepat
+    setTimeout(() => {
+      inputField.classList.remove("shake");
+    }, 400);
+
+    // auto-clear border error (UX friendly)
+    setTimeout(() => {
+      inputWrapper.classList.remove("error");
+    }, 1500);
+  }
+
+  function getSelectedTone() {
+    const checked = document.querySelector('input[name="tone"]:checked');
+    return checked ? checked.value : "neutral";
+  }
+
+  function getSelectedLength() {
+    if (selectedValue === 1) return "short";
+    if (selectedValue === 3) return "long";
+    return "medium";
+  }
+
+  function setGenerating(state) {
+    if (state) {
+      btn.disabled = true;
+      btn.textContent = "Generating...";
+      btn.classList.add("opacity-80", "cursor-not-allowed");
+    } else {
+      btn.disabled = false;
+      btn.textContent = originalButtonLabel;
+      btn.classList.remove("opacity-80", "cursor-not-allowed");
+    }
+  }
+
+  btn.onclick = () => {
+    setGenerating(true);
+    const text = inputField.value.trim(); // pakai text, bukan value!
+    const words = text.split(/\s+/).filter(Boolean);
+    const count = words.length;
+    /* --- VALIDASI: INPUT KOSONG --- */
+    if (!text) {
+      setGenerating(false);
+      showInputError("Input cannot be empty!");
+      return;
+    }
+
+    /* --- VALIDASI: MELEBIHI BATAS KATA --- */
+    if (count > MAX_WORDS) {
+      setGenerating(false);
+      showInputError(`Input exceeds max limit (${MAX_WORDS} words)!`);
+      return;
+    }
+
+    /* --- LOGIKA NORMAL GENERATE --- */
+    const tone = getSelectedTone();
+    const length = getSelectedLength();
+
+    const tool = btn.dataset.tool;
+
+    const engine = window.ToolzyEngines?.[tool];
+
+    if (!engine) {
+      showToast("Engine not found");
+      setGenerating(false);
+      return;
+    }
+
+    const results = engine({
+      input: text,
+      tone,
+      length,
+      limit: cards.length,
+    });
+
+    const variants = [
+      "Standard caption",
+      "Shorter version",
+      "Punchy / hook style",
+    ];
+
+    cards.forEach((card, idx) => {
+      const shimmer = shimmers[idx];
+      const placeholder = placeholders[idx];
+      const textEl = texts[idx];
+
+      // reset text
+      if (placeholder) placeholder.style.display = "none";
+      shimmer.classList.remove("hidden");
+      textEl.textContent = "";
+
+      const generated = results[idx] || "";
+
+      setTimeout(
+        () => {
+          shimmer.classList.add("hidden");
+          typeText(textEl, generated);
+          copyButtons[idx].classList.remove("hidden-force");
+          // ⬇️ reset button setelah card terakhir
+          if (idx === cards.length - 1) {
+            setGenerating(false);
+          }
+        },
+        500 + idx * 120,
+      );
+    });
+  };
+</script>

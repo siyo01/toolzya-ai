@@ -1,0 +1,128 @@
+---
+// src/components/SEO.astro
+// Universal SEO component for Astro — Toolzya final branding
+
+const {
+  title = "",
+  description = "",
+  canonical = "",
+  image = "",
+  keywords = "",
+  robots = "index,follow",
+  lang = "en",
+  extraLd = [],
+  twitterCard = "summary_large_image",
+  pageType = "WebPage",
+
+  // ✅ brand suffix (clean)
+  titleSuffix = " | Toolzya",
+} = Astro.props;
+
+// ==============================
+// SITE DEFAULTS
+// ==============================
+const SITE_URL = import.meta.env.SITE_URL || "https://toolzya.com";
+const DEFAULT_IMAGE =
+  import.meta.env.DEFAULT_OG_IMAGE || `${SITE_URL}/og/default.png`;
+
+// ==============================
+// TITLE LOGIC (ANTI DOUBLE)
+// ==============================
+// Page title → "Page | Toolzya"
+// Homepage (no title passed) → "Toolzya"
+const fullTitle = title ? `${title}${titleSuffix}` : "Toolzya";
+
+// ==============================
+// DESCRIPTION FALLBACK
+// ==============================
+const desc =
+  description ||
+  "Toolzya is a smart AI content generator providing free tools for usernames, hashtags, captions, bios, and call-to-action text. Fast, simple, and no login required.";
+
+// ==============================
+// REQUEST PATH (SAFE)
+// ==============================
+let requestPath = "/";
+
+try {
+  const maybeReq = Astro?.request;
+  if (maybeReq?.url) {
+    const url =
+      typeof maybeReq.url === "string" ? new URL(maybeReq.url) : maybeReq.url;
+    requestPath = url.pathname || "/";
+  }
+} catch {
+  requestPath = "/";
+}
+
+// ==============================
+// CANONICAL & OG IMAGE
+// ==============================
+const canonicalUrl = canonical || `${SITE_URL}${requestPath}`;
+const ogImage = image || DEFAULT_IMAGE;
+
+// ==============================
+// BASE JSON-LD
+// ==============================
+const baseLd = {
+  "@context": "https://schema.org",
+  "@type":
+    pageType === "SoftwareApplication" ? "SoftwareApplication" : "WebPage",
+  name: fullTitle,
+  url: canonicalUrl,
+  description: desc,
+  inLanguage: lang,
+  publisher: {
+    "@type": "Organization",
+    name: "Toolzya",
+    url: SITE_URL,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/assets/toolzya-icon.svg`,
+    },
+  },
+};
+---
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>{fullTitle}</title>
+  <meta name="description" content={desc} />
+  {keywords && <meta name="keywords" content={keywords} />}
+  <meta name="robots" content={robots} />
+  <link rel="canonical" href={canonicalUrl} />
+  <meta http-equiv="x-ua-compatible" content="IE=edge" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="Toolzya" />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={desc} />
+  <meta property="og:type" content={pageType} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={ogImage} />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content={twitterCard} />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={desc} />
+  <meta name="twitter:image" content={ogImage} />
+
+  <!-- Base JSON-LD -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(baseLd, null, 2)}
+  />
+
+  <!-- Extra JSON-LD -->
+  {
+    Array.isArray(extraLd) &&
+      extraLd.map((ld) => (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(ld, null, 2)}
+        />
+      ))
+  }
+</head>

@@ -1,0 +1,989 @@
+---
+import MainLayout from "../layouts/mainlayout.astro";
+import Seo from "../components/seo.astro";
+
+const pageTitle = "About Toolzya — Simple AI Writing Tools";
+const pageDescription =
+  "Learn about Toolzya, our story, values, and how we build simple AI tools to help people create with clarity and confidence.";
+const canonical = "https://toolzya.com/about";
+---
+
+<MainLayout>
+  <Seo
+    slot="head"
+    title={pageTitle}
+    description={pageDescription}
+    canonical={canonical}
+  />
+
+  <!-- =========================
+       SECTION 1 — ABOUT HERO (IMPROVED)
+  ========================== -->
+  <section class="relative text-center py-28 md:py-36">
+    <h1
+      class="text-5xl md:text-7xl font-extrabold text-[#0D1B2A] mb-8 animate-slide-up tracking-tight"
+    >
+      About Toolzya
+    </h1>
+
+    <p
+      class="mt-6 max-w-2xl mx-auto text-xl md:text-2xl leading-relaxed text-[#0D1B2A] font-semibold animate-slide-up-delay-1"
+    >
+      Simple AI tools for clearer thinking and faster creation.
+    </p>
+
+    <p
+      class="mt-6 max-w-3xl mx-auto text-base md:text-lg leading-relaxed text-[#415A77] animate-slide-up-delay-2"
+    >
+      Toolzya is built to help people move from ideas to action without
+      unnecessary complexity, friction, or confusion. Whether you're drafting
+      content, exploring ideas, or looking for a starting point, Toolzya focuses
+      on making that first step feel easier and more approachable. The goal
+      isn't perfection, but momentum.
+    </p>
+
+    <!-- Scroll Indicator -->
+    <div class="mt-12 animate-bounce">
+      <svg
+        class="w-6 h-6 mx-auto text-[#415A77]"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- =========================
+     SECTION 2 — OUR STORY (FINAL)
+========================== -->
+  <section class="grid md:grid-cols-2 gap-16 items-center py-20 md:py-28">
+    <!-- LEFT: VISUAL -->
+    <div class="flex justify-center animate-fade-in-left">
+      <div class="relative group">
+        <!-- Soft Glow (Toolzya tone) -->
+        <div
+          class="absolute inset-0 rounded-3xl blur-2xl opacity-60
+               bg-[radial-gradient(circle_at_top_left,rgba(13,61,66,0.25),transparent_70%)]
+               transition-opacity duration-500 group-hover:opacity-80"
+        >
+        </div>
+
+        <!-- Main Logo Card -->
+        <div
+          class="relative w-72 h-72 md:w-80 md:h-80 rounded-3xl
+               bg-gradient-to-br from-[#E6ECF3] via-[#E0E4EA] to-[#D3D8DB]
+               flex items-center justify-center
+               shadow-[0_30px_80px_rgba(13,61,66,0.25)]
+               transition-all duration-500
+               group-hover:scale-105 group-hover:-rotate-6"
+        >
+          <img
+            src="/assets/toolzyaicononly.svg"
+            alt="Toolzya"
+            class="w-48 h-48 opacity-90
+                 drop-shadow-[0_6px_12px_rgba(13,61,66,0.4)]"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: TEXT -->
+    <div class="animate-fade-in-right">
+      <h2
+        class="text-4xl md:text-5xl font-bold text-[#0D1B2A] mb-6 leading-tight"
+      >
+        Our Story
+      </h2>
+
+      <p class="text-base md:text-lg leading-relaxed text-[#415A77] mb-4">
+        Toolzya began with a simple belief that writing tools should help people
+        move forward, not slow them down. Creating content is a thinking
+        process. The first step should feel supportive, not overwhelming.
+        Toolzya exists to make that step easier by turning ideas into usable
+        starting points. What began as an experiment gradually evolved into a
+        focused platform built around clarity, speed, and usability.
+      </p>
+      <!-- STATS -->
+      <div class="grid grid-cols-2 gap-6 mt-10">
+        <!-- Tools -->
+        <div
+          class="text-center p-6 rounded-2xl
+               bg-gradient-to-br from-[#F7F9FB] via-[#E6ECF3] to-[#D3D8DB]
+               shadow-[0_12px_30px_rgba(13,61,66,0.15)]
+               border border-white/70 backdrop-blur-sm"
+        >
+          <div class="text-3xl font-extrabold text-[#0D3D42]">5+</div>
+          <div class="text-sm mt-1 tracking-wide text-[#415A77]">Tools</div>
+        </div>
+
+        <!-- Free -->
+        <div
+          class="text-center p-6 rounded-2xl
+               bg-gradient-to-br from-[#F7F9FB] via-[#E6ECF3] to-[#D3D8DB]
+               shadow-[0_12px_30px_rgba(13,61,66,0.15)]
+               border border-white/70 backdrop-blur-sm"
+        >
+          <div class="text-3xl font-extrabold text-[#0D3D42]">100%</div>
+          <div class="text-sm mt-1 tracking-wide text-[#415A77]">Free</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+     SECTION 3 — FOCUSED APPROACH (FINAL)
+========================== -->
+  <section class="py-20 md:py-28 relative">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 -z-10 opacity-40 overflow-hidden">
+      <div
+        class="absolute top-0 right-0 w-96 h-96
+             bg-[radial-gradient(circle_at_top_right,rgba(13,61,66,0.15),transparent_70%)]
+             rounded-full blur-3xl"
+      >
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-[1.2fr_1fr] gap-12 items-start">
+      <!-- LEFT -->
+      <div class="animate-fade-in-left">
+        <h2
+          class="text-4xl md:text-5xl font-bold text-[#0D1B2A] mb-6 leading-tight"
+        >
+          A Focused Approach to AI Writing
+        </h2>
+
+        <p class="text-base md:text-lg leading-relaxed text-[#415A77]">
+          Many writing platforms try to do everything at once. Toolzya takes a
+          different path. Instead of long, rigid outputs, Toolzya focuses on
+          short, adaptable suggestions ideas you can review, edit, and
+          personalize to match your own voice.
+        </p>
+      </div>
+
+      <!-- RIGHT CARD -->
+      <div class="animate-fade-in-right">
+        <div class="relative group">
+          <!-- Soft Glow -->
+          <div
+            class="absolute inset-0 rounded-3xl blur-xl opacity-15
+                 bg-[radial-gradient(circle_at_top_left,rgba(13,61,66,0.25),transparent_70%)]
+                 transition-opacity duration-500 group-hover:opacity-25"
+          >
+          </div>
+
+          <!-- Glass Card -->
+          <div
+            class="relative rounded-3xl
+                 bg-white/85 backdrop-blur-sm
+                 p-8 shadow-[0_25px_60px_rgba(13,61,66,0.18)]
+                 border border-[#E0E4EA]
+                 transition-all duration-500
+                 hover:shadow-[0_35px_80px_rgba(13,61,66,0.25)]
+                 hover:-translate-y-1"
+          >
+            <!-- Header -->
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-10 h-10 rounded-xl
+                     bg-gradient-to-br from-[#0D3D42] to-[#1B4F55]
+                     flex items-center justify-center
+                     shadow-md"
+              >
+                <svg
+                  class="w-5 h-5 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <p
+                class="text-sm font-bold text-[#0D1B2A] uppercase tracking-wide"
+              >
+                Core Principles
+              </p>
+            </div>
+
+            <!-- List -->
+            <ul class="space-y-4">
+              <!-- Item 1 -->
+              <li
+                class="flex items-start gap-4 group/item hover:translate-x-1 transition-transform duration-300"
+              >
+                <div
+                  class="flex-shrink-0 w-10 h-10 rounded-xl
+                       bg-gradient-to-br from-[#F4F7FA] to-[#E6ECF3]
+                       flex items-center justify-center
+                       shadow-sm group-hover/item:shadow-md"
+                >
+                  <svg
+                    class="w-5 h-5 text-[#0D3D42]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M10 6h10M4 6h2m4 12h10M4 18h2m6-6h10M4 12h6"></path>
+                  </svg>
+                </div>
+                <span
+                  class="text-sm md:text-base text-[#415A77] leading-relaxed font-medium"
+                >
+                  Simple inputs, clear outputs
+                </span>
+              </li>
+
+              <!-- Item 2 -->
+              <li
+                class="flex items-start gap-4 group/item hover:translate-x-1 transition-transform duration-300"
+              >
+                <div
+                  class="flex-shrink-0 w-10 h-10 rounded-xl
+                       bg-gradient-to-br from-[#F4F7FA] to-[#E6ECF3]
+                       flex items-center justify-center
+                       shadow-sm group-hover/item:shadow-md"
+                >
+                  <svg
+                    class="w-5 h-5 text-[#0D3D42]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"
+                    ></path>
+                  </svg>
+                </div>
+                <span
+                  class="text-sm md:text-base text-[#415A77] leading-relaxed font-medium"
+                >
+                  Multiple variations, not one fixed answer
+                </span>
+              </li>
+
+              <!-- Item 3 -->
+              <li
+                class="flex items-start gap-4 group/item hover:translate-x-1 transition-transform duration-300"
+              >
+                <div
+                  class="flex-shrink-0 w-10 h-10 rounded-xl
+                       bg-gradient-to-br from-[#F4F7FA] to-[#E6ECF3]
+                       flex items-center justify-center
+                       shadow-sm group-hover/item:shadow-md"
+                >
+                  <svg
+                    class="w-5 h-5 text-[#0D3D42]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                </div>
+                <span
+                  class="text-sm md:text-base text-[#415A77] leading-relaxed font-medium"
+                >
+                  Designed for speed and ease of use
+                </span>
+              </li>
+
+              <!-- Item 4 -->
+              <li
+                class="flex items-start gap-4 group/item hover:translate-x-1 transition-transform duration-300"
+              >
+                <div
+                  class="flex-shrink-0 w-10 h-10 rounded-xl
+                       bg-gradient-to-br from-[#F4F7FA] to-[#E6ECF3]
+                       flex items-center justify-center
+                       shadow-sm group-hover/item:shadow-md"
+                >
+                  <svg
+                    class="w-5 h-5 text-[#0D3D42]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15 7V5a3 3 0 00-6 0v2m-2 0h10a1 1 0 011 1v10a1 1 0 01-1 1H7a1 1 0 01-1-1V8a1 1 0 011-1z"
+                    ></path>
+                  </svg>
+                </div>
+                <span
+                  class="text-sm md:text-base text-[#415A77] leading-relaxed font-medium"
+                >
+                  No sign-ups, no unnecessary friction
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+     SECTION 4 — THE JOURNEY (FINAL TONE)
+========================== -->
+  <section class="py-20 md:py-28 relative">
+    <!-- Heading -->
+    <div class="text-center mb-16 animate-fade-in">
+      <h2 class="text-4xl md:text-5xl font-bold text-[#0D1B2A] mb-4">
+        The Journey So Far
+      </h2>
+      <p class="text-base text-[#778DA9] max-w-2xl mx-auto">
+        From a simple idea to a platform that's ready to use and helps many.
+      </p>
+    </div>
+
+    <div class="max-w-4xl mx-auto relative">
+      <!-- Vertical Line -->
+      <div
+        class="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5
+             bg-gradient-to-b
+             from-[#1f6f73]/40
+             via-[#0d3d42]/30
+             to-[#1f6f73]/40
+             -z-10"
+      >
+      </div>
+
+      <!-- Timeline Items -->
+      <div class="space-y-12">
+        <!-- ITEM 1 -->
+        <div
+          class="relative flex flex-col md:flex-row md:items-center gap-8 group animate-slide-in-left"
+        >
+          <!-- Dot -->
+          <div
+            class="absolute left-8 md:left-1/2 w-4 h-4
+         bg-[#1f6f73]
+         rounded-full border-4 border-white
+         shadow-lg -translate-x-1/2 z-10
+         transition-transform duration-300
+         hover:scale-125
+         group-hover:scale-125"
+          >
+          </div>
+
+          <div class="md:w-1/2 md:text-right md:pr-12 pl-20 md:pl-0">
+            <span
+              class="inline-block px-3 py-1 rounded-full
+                   bg-[#e6f1f2] border border-[#1f6f73]/30
+                   text-xs font-bold text-[#0d3d42] mb-2"
+            >
+              November 2025
+            </span>
+            <h3 class="text-lg md:text-xl font-bold text-[#0D1B2A] mb-2">
+              The idea takes shape
+            </h3>
+          </div>
+
+          <div class="md:w-1/2 md:pl-12 pl-20">
+            <div
+              class="p-6 rounded-2xl bg-white
+         border border-[#e0e4ea]
+         shadow-md
+         transition-all duration-300 ease-out
+         hover:shadow-xl
+         hover:-translate-y-1
+         group-hover:border-[#1f6f73]"
+            >
+              <p class="text-sm md:text-base text-[#415A77] leading-relaxed">
+                Toolzya began as a personal experiment exploring how free
+                digital tools could still feel intentional, polished, and
+                genuinely helpful.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ITEM 2 -->
+        <div
+          class="relative flex flex-col md:flex-row md:items-center gap-8 group animate-slide-in-right"
+        >
+          <div
+            class="absolute left-8 md:left-1/2 w-4 h-4
+         bg-[#1f6f73]
+         rounded-full border-4 border-white
+         shadow-lg -translate-x-1/2 z-10
+         transition-transform duration-300
+         hover:scale-125
+         group-hover:scale-125"
+          >
+          </div>
+
+          <div class="md:w-1/2 md:text-right md:pr-12 pl-20 md:order-1 md:pl-0">
+            <span
+              class="inline-block px-3 py-1 rounded-full
+                   bg-[#e6f1f2] border border-[#2a8a8f]/30
+                   text-xs font-bold text-[#0d3d42] mb-2"
+            >
+              Early December 2025
+            </span>
+            <h3 class="text-lg md:text-xl font-bold text-[#0D1B2A] mb-2">
+              Exploring possibilities
+            </h3>
+          </div>
+
+          <div class="md:w-1/2 md:pl-12 pl-20 md:order-2">
+            <div
+              class="p-6 rounded-2xl bg-white
+         border border-[#e0e4ea]
+         shadow-md
+         transition-all duration-300 ease-out
+         hover:shadow-xl
+         hover:-translate-y-1
+         group-hover:border-[#1f6f73]"
+            >
+              <p class="text-sm md:text-base text-[#415A77] leading-relaxed">
+                Different approaches were tested to understand how people
+                generate, refine, and shape text ideas efficiently.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ITEM 3 -->
+        <div
+          class="relative flex flex-col md:flex-row md:items-center gap-8 group animate-slide-in-left"
+        >
+          <div
+            class="absolute left-8 md:left-1/2 w-4 h-4
+         bg-[#1f6f73]
+         rounded-full border-4 border-white
+         shadow-lg -translate-x-1/2 z-10
+         transition-transform duration-300
+         hover:scale-125
+         group-hover:scale-125"
+          >
+          </div>
+
+          <div class="md:w-1/2 md:text-right md:pr-12 pl-20 md:pl-0">
+            <span
+              class="inline-block px-3 py-1 rounded-full
+                   bg-[#e6f1f2] border border-[#3a9da3]/30
+                   text-xs font-bold text-[#0d3d42] mb-2"
+            >
+              Mid December 2025
+            </span>
+            <h3 class="text-lg md:text-xl font-bold text-[#0D1B2A] mb-2">
+              Finding the right direction
+            </h3>
+          </div>
+
+          <div class="md:w-1/2 md:pl-12 pl-20">
+            <div
+              class="p-6 rounded-2xl bg-white
+         border border-[#e0e4ea]
+         shadow-md
+         transition-all duration-300 ease-out
+         hover:shadow-xl
+         hover:-translate-y-1
+         group-hover:border-[#1f6f73]"
+            >
+              <p class="text-sm md:text-base text-[#415A77] leading-relaxed">
+                The focus shifted toward generators that create flexible, usable
+                starting points rather than rigid final outputs.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ITEM 4 — CURRENT -->
+        <div
+          class="relative flex flex-col md:flex-row md:items-center gap-8 group animate-slide-in-right"
+        >
+          <div
+            class="absolute left-8 md:left-1/2 -translate-x-1/2 z-10
+         w-4 h-4 rounded-full
+         bg-[#0d3d42]
+         border-4 border-white
+         shadow-xl
+         transition-transform duration-300
+         hover:scale-125
+         group-hover:scale-125"
+          >
+            <span
+              class="absolute inset-0 rounded-full
+           bg-[#0d3d42]/50
+           opacity-0
+           group-hover:opacity-100
+           group-hover:animate-ping"
+            ></span>
+          </div>
+
+          <div class="md:w-1/2 md:text-right md:pr-12 pl-20 md:order-1 md:pl-0">
+            <span
+              class="inline-block px-3 py-1 rounded-full bg-[#e6f1f2] border border-[#0d3d42]/30 text-xs font-bold text-[#0d3d42] mb-2"
+            >
+              Late December 2025
+            </span>
+            <h3 class="text-lg md:text-xl font-bold text-[#0D1B2A] mb-2">
+              Toolzya today
+            </h3>
+          </div>
+          <div class="md:w-1/2 md:pl-12 pl-20 md:order-2">
+            <div
+              class="p-6 rounded-2xl
+         bg-gradient-to-br from-[#e6f1f2] to-white
+         border border-[#0d3d42]/30
+         shadow-lg
+         transition-all duration-300 ease-out
+         hover:shadow-xl
+         hover:-translate-y-1"
+            >
+              <p class="text-sm md:text-base text-[#415A77] leading-relaxed">
+                Toolzya launched with a growing collection of AI-powered
+                generators, built to be fast, accessible, and friction-free.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       SECTION 5 — WHAT TOOLZYA IS (IMPROVED)
+  ========================== -->
+  <section class="py-24 md:py-32 relative">
+    <!-- Heading -->
+    <div class="text-center mb-16 animate-fade-in">
+      <h2 class="text-4xl md:text-5xl font-bold text-[#0D1B2A] mb-4">
+        Built for Your Success
+      </h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+      <!-- Item 1 -->
+      <div class="group animate-fade-in-up">
+        <div
+          class="relative p-8 rounded-3xl bg-white
+           border-2 border-[#1f6f73]/20
+           shadow-lg
+           transition-all duration-500
+           hover:border-[#1f6f73]/60
+           hover:shadow-2xl
+           hover:-translate-y-2"
+        >
+          <!-- Icon Container (tetap netral) -->
+          <div
+            class="w-24 h-24 mx-auto mb-6 rounded-2xl
+             bg-[#E0E1DD]
+             flex items-center justify-center
+             transition-transform duration-500
+             group-hover:scale-110"
+          >
+            <img
+              src="/assets/lightbulb-fill.svg"
+              class="w-12 h-12 opacity-80"
+            />
+          </div>
+
+          <h3 class="font-bold text-[#0D1B2A] text-xl mb-3 text-center">
+            Idea Starters
+          </h3>
+
+          <p class="text-center text-sm md:text-base text-[#415A77]">
+            Designed to help you begin, not dictate the final result.
+          </p>
+
+          <!-- Accent Dot -->
+          <div
+            class="absolute top-5 right-5 w-2.5 h-2.5
+             bg-[#1f6f73]
+             rounded-full
+             opacity-0 scale-75
+             transition-all duration-500
+             group-hover:opacity-100
+             group-hover:scale-100"
+          >
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="group animate-fade-in-up-delay-1">
+        <div
+          class="relative p-8 rounded-3xl bg-white
+           border-2 border-[#2a8a8f]/20
+           shadow-lg
+           transition-all duration-500
+           hover:border-[#2a8a8f]/60
+           hover:shadow-2xl
+           hover:-translate-y-2"
+        >
+          <div
+            class="w-24 h-24 mx-auto mb-6 rounded-2xl
+             bg-[#E6ECF3]
+             flex items-center justify-center
+             transition-transform duration-500
+             group-hover:scale-110"
+          >
+            <img src="/assets/person-fill.svg" class="w-12 h-12 opacity-80" />
+          </div>
+
+          <h3 class="font-bold text-[#0D1B2A] text-xl mb-3 text-center">
+            Built for Creators
+          </h3>
+
+          <p class="text-center text-sm md:text-base text-[#415A77]">
+            Useful for students, creators, and everyday digital work.
+          </p>
+
+          <div
+            class="absolute top-5 right-5 w-2.5 h-2.5
+             bg-[#2a8a8f]
+             rounded-full
+             opacity-0 scale-75
+             transition-all duration-500
+             group-hover:opacity-100
+             group-hover:scale-100"
+          >
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="group animate-fade-in-up-delay-2">
+        <div
+          class="relative p-8 rounded-3xl bg-white
+           border-2 border-[#415A77]/20
+           shadow-lg
+           transition-all duration-500
+           hover:border-[#415A77]/60
+           hover:shadow-2xl
+           hover:-translate-y-2"
+        >
+          <div
+            class="w-24 h-24 mx-auto mb-6 rounded-2xl
+             bg-[#d3d8db]
+             flex items-center justify-center
+             transition-transform duration-500
+             group-hover:scale-110"
+          >
+            <img
+              src="/assets/lock-key-open-fill.svg"
+              class="w-12 h-12 opacity-80"
+            />
+          </div>
+
+          <h3 class="font-bold text-[#0D1B2A] text-xl mb-3 text-center">
+            Free & Accessible
+          </h3>
+
+          <p class="text-center text-sm md:text-base text-[#415A77]">
+            No accounts, no barriers, just tools that work.
+          </p>
+
+          <div
+            class="absolute top-5 right-5 w-2.5 h-2.5
+             bg-[#415A77]
+             rounded-full
+             opacity-0 scale-75
+             transition-all duration-500
+             group-hover:opacity-100
+             group-hover:scale-100"
+          >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+     SECTION 6 — LOOKING AHEAD (FINAL COLOR MATCH)
+========================== -->
+  <section class="py-20 md:py-24 relative">
+    <div class="max-w-4xl mx-auto">
+      <div class="relative group animate-scale-in">
+        <!-- Outer Glow -->
+        <div
+          class="absolute inset-0
+               bg-gradient-to-br from-[#778DA9] via-[#415A77] to-[#1B263B]
+               rounded-[3rem] blur-2xl opacity-20
+               group-hover:opacity-30 transition-opacity duration-700 overflow-x-hidden"
+        >
+        </div>
+
+        <!-- Main Card -->
+        <div
+          class="relative rounded-[3rem]
+               bg-gradient-to-br from-white via-white to-[#E0E1DD]/40
+               border-2 border-white
+               shadow-[0_20px_40px_-20px_rgba(13,27,42,0.25)]
+               px-2 md:px-8
+               py-6 md:py-8
+               text-center overflow-hidden"
+        >
+          <!-- Illustration -->
+          <div class="mx-auto mb-6">
+            <img
+              src="/assets/illustration02.png"
+              alt="Looking Ahead Illustration"
+              class="mx-auto w-full max-w-[520px] max-h-[140px] object-contain opacity-95"
+            />
+          </div>
+
+          <!-- Content -->
+          <div class="relative z-10">
+            <h2
+              class="text-2xl md:text-4xl font-extrabold
+                   text-[#0D1B2A] mb-5 leading-tight"
+            >
+              Looking Ahead
+            </h2>
+
+            <p
+              class="max-w-xl mx-auto
+                   text-base md:text-md leading-relaxed
+                   text-[#415A77]"
+            >
+              Toolzya is still evolving, shaped by small improvements and
+              thoughtful iteration. As new generators are added and quality
+              continues to improve, the goal stays consistent. Toolzya is built
+              to remain simple, practical, and focused on helping people move
+              forward with confidence.
+            </p>
+
+            <!-- CTA Button -->
+            <div class="mt-8">
+              <a
+                href="/"
+                class="inline-flex items-center gap-3
+                     px-5 py-2.5
+                     bg-[#0D1B2A]
+                     text-white font-semibold
+                     rounded-2xl
+                     shadow-lg
+                     transition-all duration-300
+                     hover:-translate-y-0.5
+                     hover:shadow-xl
+                     hover:ring-2 hover:ring-[#1f6f73]/30"
+              >
+                <span>Explore Our Tools</span>
+                <svg
+                  class="w-4 h-4 transition-transform duration-300 mt-0.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  >
+                  </path>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Subtle Decorative Glows -->
+          <div
+            class="absolute -bottom-12 -right-12 w-40 h-40
+                 bg-[#778DA9]/20 rounded-full blur-3xl"
+          >
+          </div>
+          <div
+            class="absolute -top-12 -left-12 w-40 h-40
+                 bg-[#415A77]/20 rounded-full blur-3xl"
+          >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+<style>
+  /* Animations */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes pulse-slow {
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.1);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.8s ease-out;
+  }
+
+  .animate-slide-up-delay-1 {
+    animation: slide-up 0.8s ease-out 0.2s both;
+  }
+
+  .animate-slide-up-delay-2 {
+    animation: slide-up 0.8s ease-out 0.4s both;
+  }
+
+  .animate-fade-in-left {
+    animation: slide-in-left 0.8s ease-out;
+  }
+
+  .animate-fade-in-right {
+    animation: slide-in-right 0.8s ease-out;
+  }
+
+  .animate-slide-in-left {
+    animation: slide-in-left 0.6s ease-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 0.6s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.8s ease-out;
+  }
+
+  .animate-fade-in-up {
+    animation: slide-up 0.6s ease-out;
+  }
+
+  .animate-fade-in-up-delay-1 {
+    animation: slide-up 0.6s ease-out 0.15s both;
+  }
+
+  .animate-fade-in-up-delay-2 {
+    animation: slide-up 0.6s ease-out 0.3s both;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow-delay {
+    animation: pulse-slow 4s ease-in-out 2s infinite;
+  }
+
+  /* Smooth Scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Intersection Observer Animation Support */
+  @media (prefers-reduced-motion: no-preference) {
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition:
+        opacity 0.6s ease-out,
+        transform 0.6s ease-out;
+    }
+
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  // Intersection Observer for scroll animations
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      },
+    );
+
+    document.querySelectorAll(".animate-on-scroll").forEach((el) => {
+      observer.observe(el);
+    });
+  }
+</script>

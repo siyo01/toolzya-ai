@@ -1,0 +1,237 @@
+---
+// src/layouts/mainlayout.astro
+import "../styles/global.css";
+// Accept props but don't emit title/meta here - pages should provide SEO via <SEO /> into head slot
+const { title = "Toolzya" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <!-- allow pages to inject SEO/head tags -->
+    <slot name="head" />
+
+    <!-- Fallbacks / global head items (kept minimal) -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/assets/toolzyaicononly.svg" />
+
+    <!-- Prevent FLASH for Alpine-controlled elements -->
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+
+    <!-- Alpine collapse plugin then core (defer so it doesn't block) -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <!-- Register plugin safely (guard for Alpine presence) -->
+    <script defer>
+      document.addEventListener("alpine:init", () => {
+        try {
+          Alpine.plugin(window.AlpineCollapse);
+        } catch (e) {
+          // plugin registration failed or Alpine not present yet; ignore silently
+        }
+      });
+    </script>
+    <script src="/engine/index.js" type="module"></script>
+  </head>
+
+  <body
+    x-data="{ open: false }"
+    :class="open ? 'overflow-hidden' : ''"
+    class="min-h-screen flex flex-col bg-[#E0E1DD] text-[#1B263B] antialiased overflow-x-hidden"
+  >
+    <!-- HEADER -->
+    <header
+      x-data="{ open: false }"
+      class="w-full sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-[#778DA9]/20 z-[60]"
+    >
+      <nav
+        class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between"
+      >
+        <!-- LEFT: HAMBURGER + LOGO -->
+        <div class="flex items-center gap-3">
+          <!-- MOBILE HAMBURGER -->
+          <button
+            class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition"
+            @click="open = true"
+            aria-label="Open Menu"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 text-[#0D1B2A]"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+
+          <!-- LOGO -->
+          <a
+            href="/"
+            class="flex items-center gap-2 font-bold text-xl text-[#0D1B2A]"
+          >
+            <img
+              src="/assets/toolzyaicononly.svg"
+              alt="Toolzya Logo"
+              class="w-8 h-8"
+            />
+            Toolzya
+          </a>
+        </div>
+
+        <!-- NAVIGATION DESKTOP -->
+        <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+          <a href="/username_generator" class="hover:text-[#415A77] transition"
+            >Username Generator</a
+          >
+          <a href="/hashtag_generator" class="hover:text-[#415A77] transition"
+            >Hashtag Generator</a
+          >
+          <a href="/cta_generator" class="hover:text-[#415A77] transition"
+            >CTA Generator</a
+          >
+          <a href="/caption_generator" class="hover:text-[#415A77] transition"
+            >Caption Generator</a
+          >
+          <a href="/bio_generator" class="hover:text-[#415A77] transition"
+            >Bio Generator</a
+          >
+        </div>
+      </nav>
+
+      <!-- MOBILE SIDEBAR MENU (NO FLASH) -->
+      <div
+        x-cloak
+        class="fixed top-0 left-0 h-screen w-64 bg-white shadow-xl border-r border-gray-200 transform -translate-x-full transition-transform duration-300 z-50"
+        :class="open ? 'translate-x-0' : '-translate-x-full'"
+      >
+        <!-- SIDEBAR HEADER -->
+        <div
+          class="flex items-center justify-between px-4 py-4 border-b border-gray-100"
+        >
+          <div class="flex items-center gap-2">
+            <img src="/assets/toolzyaicononly.svg" class="w-7" alt="Toolzya" />
+            <span class="font-bold text-lg">Toolzya</span>
+          </div>
+
+          <!-- CLOSE BTN -->
+          <button
+            class="p-2 rounded-lg hover:bg-gray-100 transition"
+            @click="open = false"
+            aria-label="Close Menu"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 text-gray-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- SIDEBAR LINKS -->
+        <div
+          class="flex flex-col px-4 py-4 text-[#1B263B] text-base font-medium"
+        >
+          <a
+            href="/username_generator"
+            class="py-2 hover:text-[#415A77] transition"
+            @click="open=false">Username Generator</a
+          >
+          <a
+            href="/hashtag_generator"
+            class="py-2 hover:text-[#415A77] transition"
+            @click="open=false">Hashtag Generator</a
+          >
+          <a
+            href="/cta_generator"
+            class="py-2 hover:text-[#415A77] transition"
+            @click="open=false">CTA Generator</a
+          >
+          <a
+            href="/caption_generator"
+            class="py-2 hover:text-[#415A77] transition"
+            @click="open=false">Caption Generator</a
+          >
+          <a
+            href="/bio_generator"
+            class="py-2 hover:text-[#415A77] transition"
+            @click="open=false">Bio Generator</a
+          >
+        </div>
+      </div>
+
+      <!-- OVERLAY (NO FLASH NOW) -->
+      <div
+        x-cloak
+        class="fixed inset-0 bg-black/40 z-40 transition-opacity duration-300 md:hidden"
+        x-show="open"
+        @click="open=false"
+        x-transition.opacity
+      >
+      </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main class="flex-1 w-full">
+      <div class="max-w-6xl mx-auto px-4 py-12">
+        <slot />
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer
+      class="w-full border-t border-[#778DA9]/20 mt-16 bg-white/70 backdrop-blur"
+    >
+      <div class="max-w-6xl mx-auto px-4 py-8 text-sm text-[#415A77]">
+        <div
+          class="flex flex-col md:flex-row items-center md:items-start justify-between gap-4 text-center md:text-left"
+        >
+          <p>
+            Toolzya © 2025 — Free AI Writing Tools. Helping you write smarter,
+            faster, and better.
+          </p>
+
+          <div class="flex gap-6">
+            <a href="/about" class="hover:text-[#0D1B2A] transition">About</a>
+            <a href="/privacy_policy" class="hover:text-[#0D1B2A] transition"
+              >Privacy Policy</a
+            >
+            <a href="/terms_of_service" class="hover:text-[#0D1B2A] transition"
+              >Terms of Service</a
+            >
+            <a
+              href="mailto:toolzya.help@gmail.com"
+              class="hover:text-[#0D1B2A] transition">Contact</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,595 @@
+---
+// src/pages/hashtag_generator.astro
+import SEO from "../components/seo.astro";
+import MainLayout from "../layouts/mainlayout.astro";
+import ToolPage from "../components/toolpagegenerator.astro";
+
+const pageTitle = "AI Hashtag Generator - Create Relevant Hashtags";
+const pageDescription =
+  "Generate relevant hashtag ideas from keywords or topics. Toolzya Hashtag Generator helps you find hashtags to improve reach on social media platforms.";
+const pageKeywords =
+  "hashtag generator, ai hashtag generator, instagram hashtags, tiktok hashtags, social media hashtags";
+const canonical = "https://toolzya.com/hashtag_generator";
+
+// FAQ JSON-LD for this page (passed into seo.astro via extraLd)
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is a Hashtag Generator?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "A hashtag generator suggests hashtag ideas based on keywords or topics to help improve content discoverability on social media.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Are the hashtags guaranteed to increase reach?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. Hashtags are suggestions only. Performance depends on content quality, platform algorithms, and audience engagement.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I use these hashtags on Instagram, TikTok, or other platforms?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Generated hashtags can be used across social media platforms, but you should follow each platform’s hashtag guidelines.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is the Hashtag Generator free to use?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Toolzya provides the Hashtag Generator for free with reasonable usage limits.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Does Toolzya store my input?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Toolzya does not store user input after processing. Avoid entering sensitive or private information.",
+      },
+    },
+  ],
+};
+---
+
+<!-- inject seo metadata + json-ld -->
+<SEO
+  slot="head"
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  canonical={canonical}
+  pageType="SoftwareApplication"
+  extraLd={[faqLd]}
+/>
+
+<head slot="head">
+  <style>
+    /* Remove default marker */
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    /* Prevent Alpine flicker */
+    [x-cloak] {
+      display: none !important;
+    }
+
+    /* FAQ styles (match other tool pages) */
+    .faq-item {
+      padding: 0;
+    }
+
+    .faq-summary {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      outline: none;
+      transition: background 0.25s ease;
+    }
+
+    .faq-summary:hover {
+      background: rgb(173, 202, 206);
+    }
+
+    .faq-question {
+      font-size: 15px;
+      font-weight: 500;
+      color: #1b263b;
+      text-align: left;
+    }
+
+    .faq-arrow {
+      width: 18px;
+      height: 18px;
+      stroke: #778da9;
+      transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .rotate-180 {
+      transform: rotate(180deg);
+    }
+
+    .faq-body-wrapper {
+      overflow: hidden;
+    }
+
+    .faq-body {
+      padding: 0 1.25rem 1rem 1.25rem;
+      font-size: 14px;
+      color: #415a77;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<MainLayout title={pageTitle} description={pageDescription}>
+  <ToolPage
+    title="AI Hashtag Generator"
+    description="Generate relevant hashtag ideas based on keywords or topics."
+    tool="hashtag"
+    buttonLabel="Generate Hashtags"
+    placeholder="Enter a topic, keyword, or niche…"
+    resultPlaceholder="Your generated hashtags will appear here."
+    tones={[
+      { label: "Popular", value: "popular" },
+      { label: "Niche", value: "niche" },
+      { label: "Mixed", value: "mixed" },
+    ]}
+    toneDescriptions={{
+      popular: "Commonly used hashtags with broader visibility.",
+      niche: "More specific hashtags for targeted audiences.",
+      mixed: "A balance of popular and niche hashtags.",
+    }}
+  />
+
+  <!-- SEO CONTENT SECTION (matching transform tools style) -->
+  <section class="max-w-5xl mx-auto mt-20 mb-24 px-6 space-y-14">
+    <!-- Intro -->
+    <div class="text-center max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold text-[#0D1B2A] mb-3">
+        What Is a Hashtag Generator?
+      </h2>
+      <p class="text-[#415A77] leading-relaxed text-[15px]">
+        A hashtag generator helps you discover hashtag ideas based on keywords,
+        topics, or niches. Toolzya Hashtag Generator provides relevant hashtag
+        suggestions that you can use as a starting point to organize and
+        optimize your social media posts.
+      </p>
+    </div>
+
+    <!-- 3-column benefits -->
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <!-- MOBILE: horizontal divider -->
+        <div aria-hidden="true" class="md:hidden mb-4 h-px w-full bg-[#0d3d42]">
+        </div>
+
+        <!-- DESKTOP: vertical divider -->
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 -translate-y-1/2
+           h-32 w-1 rounded-r-md
+           bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Save time
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Generate hashtag ideas instantly instead of manually searching and
+            researching hashtags one by one.
+          </p>
+        </div>
+      </div>
+
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <!-- MOBILE: horizontal divider -->
+        <div aria-hidden="true" class="md:hidden mb-4 h-px w-full bg-[#0d3d42]">
+        </div>
+
+        <!-- DESKTOP: vertical divider -->
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 -translate-y-1/2
+           h-32 w-1 rounded-r-md
+           bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Relevant suggestions
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Get hashtag suggestions based on keywords or topics to help keep
+            your posts organized and contextually relevant.
+          </p>
+        </div>
+      </div>
+
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <!-- MOBILE: horizontal divider -->
+        <div aria-hidden="true" class="md:hidden mb-4 h-px w-full bg-[#0d3d42]">
+        </div>
+
+        <!-- DESKTOP: vertical divider -->
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 -translate-y-1/2
+           h-32 w-1 rounded-r-md
+           bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Platform-ready
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Use hashtag ideas for Instagram, TikTok, or other platforms while
+            still adjusting them to match each platform's best practices.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Good use cases vs limitations -->
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Can Do -->
+      <div class="bg-white border border-[#E0E4EA] rounded-2xl p-6 shadow-sm">
+        <h3 class="text-lg font-semibold text-[#1B263B] mb-4">
+          What Toolzya Hashtag Generator can do
+        </h3>
+
+        <div class="space-y-4 text-[14px] text-[#415A77] leading-relaxed">
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: hashtag -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <line x1="4" y1="9" x2="20" y2="9"></line>
+                <line x1="4" y1="15" x2="20" y2="15"></line>
+                <line x1="9" y1="4" x2="7" y2="20"></line>
+                <line x1="17" y1="4" x2="15" y2="20"></line>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Generate hashtag ideas based on keywords, topics, or short
+              descriptions.
+            </p>
+          </div>
+
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: hashtag variations / network -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="6" cy="12" r="2"></circle>
+                <circle cx="18" cy="6" r="2"></circle>
+                <circle cx="18" cy="18" r="2"></circle>
+                <path d="M8 12h8"></path>
+                <path d="M8 12l8-6"></path>
+                <path d="M8 12l8 6"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Provide multiple hashtag variations so you can choose what fits
+              your content best.
+            </p>
+          </div>
+
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: social share -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <path d="M8.5 13.5l7 4"></path>
+                <path d="M15.5 6.5l-7 4"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Suggest hashtags suitable for different platforms such as
+              Instagram, TikTok, or other social networks.
+            </p>
+          </div>
+
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: reach vs niche -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="12" cy="12" r="9"></circle>
+                <circle cx="12" cy="12" r="5"></circle>
+                <circle cx="12" cy="12" r="1"></circle>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Offer a mix of popular and niche hashtags to support different
+              content discovery strategies.
+            </p>
+          </div>
+
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: organized list -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <line x1="9" y1="6" x2="20" y2="6"></line>
+                <line x1="9" y1="12" x2="20" y2="12"></line>
+                <line x1="9" y1="18" x2="20" y2="18"></line>
+                <circle cx="5" cy="6" r="1"></circle>
+                <circle cx="5" cy="12" r="1"></circle>
+                <circle cx="5" cy="18" r="1"></circle>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Help organize hashtags quickly without manually researching each
+              one.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Limitations -->
+      <div class="bg-white border border-[#E0E4EA] rounded-2xl p-6 shadow-sm">
+        <h3 class="text-lg font-semibold text-[#1B263B] mb-4">
+          Things to Keep in Mind
+        </h3>
+
+        <div class="space-y-4 text-[14px] text-[#415A77] leading-relaxed">
+          <div class="flex gap-3 items-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: no guarantee -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M3 7l6 6 4-4 7 7"></path>
+                <path d="M21 21H3"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Hashtags are suggestions only and do not guarantee increased reach
+              or engagement.
+            </p>
+          </div>
+
+          <div class="flex gap-3 items-start mt-4">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: algorithm factors -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <line x1="4" y1="21" x2="4" y2="14"></line>
+                <line x1="4" y1="10" x2="4" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="3"></line>
+                <line x1="20" y1="21" x2="20" y2="16"></line>
+                <line x1="20" y1="12" x2="20" y2="3"></line>
+                <line x1="1" y1="14" x2="7" y2="14"></line>
+                <line x1="9" y1="8" x2="15" y2="8"></line>
+                <line x1="17" y1="16" x2="23" y2="16"></line>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Performance may vary depending on content quality, platform
+              algorithms, and audience behavior.
+            </p>
+          </div>
+
+          <div class="flex gap-3 items-start mt-4">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: banned hashtag -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M5 5l14 14"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Avoid using banned, restricted, or misleading hashtags that may
+              harm visibility.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="mt-16" x-data>
+      <h2 class="text-2xl font-bold text-[#0D1B2A] text-center mb-6">
+        Frequently Asked Questions
+      </h2>
+
+      <div
+        class="max-w-3xl mx-auto bg-white/70 backdrop-blur-sm border border-[#E0E4EA] rounded-2xl shadow-sm divide-y divide-[#E0E4EA] overflow-hidden"
+      >
+        <!-- FAQ 1 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question">What is a Hashtag Generator? </span>
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              A hashtag generator suggests hashtag ideas based on keywords or
+              topics to help improve content discoverability on social media.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question"
+              >Are the hashtags guaranteed to increase reach?</span
+            >
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              No. Hashtags are suggestions only. Performance depends on content
+              quality, platform algorithms, and audience engagement.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question"
+              >Can I use these hashtags on Instagram, TikTok, or other
+              platforms?</span
+            >
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Yes. Generated hashtags can be used across social media platforms,
+              but you should follow each platform's hashtag guidelines.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question"
+              >Is the Hashtag Generator free to use?</span
+            >
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Yes. Toolzya provides the Hashtag Generator for free with
+              reasonable usage limits.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question">Does Toolzya store my input?</span>
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Toolzya does not store user input after processing. Avoid entering
+              sensitive or private information.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>

@@ -1,0 +1,617 @@
+---
+import SEO from "../components/seo.astro";
+import MainLayout from "../layouts/mainlayout.astro";
+import ToolPage from "../components/toolpagetransform.astro";
+
+const pageTitle = "AI Paraphraser - Rephrase Text Quickly";
+const pageDescription =
+  "Use Toolzya Paraphraser to rewrite sentences, emails, and short content into clearer and more natural variations while keeping your main idea intact.";
+const pageKeywords =
+  "ai paraphraser, paraphrasing tool, rewrite sentences, rephrase text, sentence rewriter, text rewriter";
+const canonical = "https://toolzya.com/paraphraser";
+
+// FAQ JSON-LD for this page (passed into seo.astro via extraLd)
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is Toolzya Paraphraser?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Toolzya Paraphraser helps you rewrite text into clearer or more natural variations while aiming to keep your main idea intact.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is this paraphrasing tool free?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Toolzya offers a free paraphrasing tool that you can use without creating an account.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Does Toolzya always keep the meaning the same?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The tool is designed to keep the main meaning of your text, but results may vary. You should always review and edit the output before using it.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is Toolzya's paraphrasing tool free to use?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Toolzya's paraphraser is free with reasonable usage limits. Always review outputs before using them in important contexts.",
+      },
+    },
+  ],
+};
+---
+
+<!-- inject seo metadata + json-ld -->
+<SEO
+  slot="head"
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  canonical={canonical}
+  pageType="SoftwareApplication"
+  extraLd={[faqLd]}
+/>
+
+<style>
+  /* Remove default marker */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* Supaya Alpine tidak flicker */
+  [x-cloak] {
+    display: none !important;
+  }
+
+  /* Wrapper setiap FAQ */
+  .faq-item {
+    padding: 0;
+  }
+
+  /* Tombol FAQ (full width) */
+  .faq-summary {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    transition: background 0.25s ease;
+  }
+
+  /* Hover seluruh bar */
+  .faq-summary:hover {
+    background: rgb(173, 202, 206);
+  }
+
+  /* Teks pertanyaan */
+  .faq-question {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1b263b;
+    text-align: left;
+  }
+
+  .faq-arrow {
+    width: 18px;
+    height: 18px;
+    stroke: #778da9;
+    transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .rotate-180 {
+    transform: rotate(180deg);
+  }
+
+  /* Wrapper collapse – no padding di sini */
+  .faq-body-wrapper {
+    overflow: hidden;
+  }
+
+  .faq-body {
+    padding: 0 1.25rem 1rem 1.25rem;
+    font-size: 14px;
+    color: #415a77;
+    line-height: 1.6;
+  }
+</style>
+
+<MainLayout title={pageTitle} description={pageDescription}>
+  <ToolPage
+    title="AI Paraphraser"
+    description="Rephrase your text into clearer or more natural variations while keeping the core meaning in mind."
+    buttonLabel="Paraphrase Text"
+    modes={[
+      { label: "Standard", value: "standard" },
+      { label: "Fluent", value: "fluent" },
+      { label: "Creative", value: "creative" },
+    ]}
+    modeDescriptions={{
+      standard:
+        "Lightly refines your text while keeping the original structure and meaning.",
+      fluent: "Improves sentence flow and readability for smoother writing.",
+      creative:
+        "Adds slight variation in wording while maintaining clarity and intent.",
+    }}
+    placeholder="Paste text to paraphrase"
+    resultPlaceholder="Your paraphrased text will appear here."
+  />
+
+  <!-- SEO CONTENT SECTION (New design) -->
+  <section class="max-w-5xl mx-auto mt-20 mb-24 px-6 space-y-14">
+    <!-- Intro -->
+    <div class="text-center max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold text-[#0D1B2A] mb-3">
+        What Is an AI Paraphraser?
+      </h2>
+      <p class="text-[#415A77] leading-relaxed text-[15px]">
+        An AI paraphraser helps you rewrite existing text into new variations
+        that are easier to read or better suited to your tone. Toolzya
+        Paraphraser is designed for short passages, captions, emails, and study
+        notes where you want clearer wording without starting from scratch.
+      </p>
+    </div>
+
+    <!-- 3-column benefits (decorative vertical bar + small number marker) -->
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- ITEM 1 -->
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <!-- vertical decorative bar (desktop only) -->
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 transform -translate-y-1/2 h-32 w-1 rounded-r-md bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+
+        <!-- content (ke-kanan supaya tidak tumpang tindih dengan bar/marker) -->
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Improve clarity
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Reword long or confusing sentences into simpler, more readable
+            alternatives.
+          </p>
+        </div>
+      </div>
+
+      <!-- ITEM 2 -->
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 transform -translate-y-1/2 h-32 w-1 rounded-r-md bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Adjust tone and style
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Switch between more neutral, fluent, or creative wording depending
+            on what you need.
+          </p>
+        </div>
+      </div>
+
+      <!-- ITEM 3 -->
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 transform -translate-y-1/2 h-32 w-1 rounded-r-md bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Save time drafting
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Use suggestions as a starting point, then edit them into your final
+            version instead of rewriting everything manually.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Good use cases vs limitations -->
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Can Do -->
+      <div class="bg-white border border-[#E0E4EA] rounded-2xl p-6 shadow-sm">
+        <h3 class="text-lg font-semibold text-[#1B263B] mb-4">
+          What Toolzya can do
+        </h3>
+
+        <div class="space-y-4 text-[14px] text-[#415A77] leading-relaxed">
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Pen icon -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 113 3L7 19l-4 1 1-4L16.5 3.5z"
+                ></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Polishing short paragraphs, captions, and posts
+            </p>
+          </div>
+
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Book icon -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M4 19.5A2.5 2.5 0 016.5 17H20"></path>
+                <path
+                  d="M4 4.5A2.5 2.5 0 016.5 7H20v13H6.5A2.5 2.5 0 014 17.5v-13z"
+                ></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Rewriting study notes into clearer explanations
+            </p>
+          </div>
+
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Repeat icon -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M17 1l4 4-4 4"></path>
+                <path d="M3 11V9a4 4 0 014-4h14"></path>
+                <path d="M7 23l-4-4 4-4"></path>
+                <path d="M21 13v2a4 4 0 01-4 4H3"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Rephrasing sentences that sound repetitive
+            </p>
+          </div>
+
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Sparkles icon -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 3l1.5 3 3 1.5-3 1.5-1.5 3-1.5-3-3-1.5 3-1.5 1.5-3z"
+                ></path>
+                <path d="M19 12l1 2 2 1-2 1-1 2-1-2-2-1 2-1 1-2z"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Exploring different ways to say the same idea
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Limitations -->
+      <div class="bg-white border border-[#E0E4EA] rounded-2xl p-6 shadow-sm">
+        <h3 class="text-lg font-semibold text-[#1B263B] mb-4">
+          Things to Keep in Mind
+        </h3>
+
+        <div class="space-y-4 text-[14px] text-[#415A77] leading-relaxed">
+          <!-- POINT 1 – ALERT -->
+          <div class="flex gap-3 items-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- SVG ALERT -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
+                ></path>
+                <path d="M12 9v4"></path>
+                <path d="M12 17h.01"></path>
+              </svg>
+            </div>
+
+            <p class="leading-tight">
+              Always review and edit the final text yourself.
+            </p>
+          </div>
+
+          <!-- POINT 2 – WAVE -->
+          <div class="flex gap-3 items-start mt-4">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- SVG WAVE -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M7 3.5c5-2 7 2.5 3 4C1.5 10 2 15 5 16c5 2 9-10 14-7s.5 13.5-4 12c-5-2.5.5-11 6-2"
+                ></path>
+              </svg>
+            </div>
+
+            <p class="leading-tight">
+              Meaning can shift slightly, especially with very short input.
+            </p>
+          </div>
+
+          <!-- POINT 3 – WAND -->
+          <div class="flex gap-3 items-start mt-4">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- SVG WAND -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                viewBox="0 0 24 24"
+              >
+                <path d="M15 4V2"></path>
+                <path d="M15 16v-2"></path>
+                <path d="M8 9h2"></path>
+                <path d="M20 9h2"></path>
+                <path d="M17.8 11.8 19 13"></path>
+                <path d="M15 9h.01"></path>
+                <path d="M17.8 6.2 19 5"></path>
+                <path d="m3 21 9-9"></path>
+                <path d="M12.2 6.2 11 5"></path>
+              </svg>
+            </div>
+
+            <p class="leading-tight">
+              Some phrasing may feel more creative or stylized depending on
+              context.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="mt-16" x-data>
+      <h2 class="text-2xl font-bold text-[#0D1B2A] text-center mb-6">
+        Frequently Asked Questions (FAQ)
+      </h2>
+
+      <div
+        class="max-w-3xl mx-auto bg-white/70 backdrop-blur-sm border border-[#E0E4EA]
+       rounded-2xl shadow-sm divide-y divide-[#E0E4EA] overflow-hidden"
+      >
+        <!-- FAQ ITEM -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question"
+              >What is the function of paraphrasing?</span
+            >
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+
+          <!-- WRAPPER FIX -->
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Paraphrasing means restating existing text in different words
+              while keeping the same main idea. It helps improve clarity, adjust
+              tone, avoid repetition, and adapt content for different readers.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ ITEM -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question">What does Toolzya Paraphraser do?</span>
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              The paraphraser suggests clearer and more natural wording while
+              keeping your text's main idea. Always review and refine the output
+              before use.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ ITEM -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question"
+              >Does Toolzya guarantee perfect accuracy?</span
+            >
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              No AI tool can guarantee perfect accuracy. Treat the output as a
+              draft and adjust it as needed to match your intended meaning.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ ITEM -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question"
+              >What kind of text works best with the paraphraser?</span
+            >
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Short paragraphs, captions, explanations, study notes, and general
+              writing work best. Very short or technical text may need more
+              editing.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ ITEM -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question"
+              >Can I use Toolzya for professional or academic writing?</span
+            >
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Yes, but always review and edit the text before submitting it for
+              any official or academic purpose.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ ITEM -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question">Is there a usage limit?</span>
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              You can paraphrase freely under fair usage limits to ensure stable
+              performance for all users.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ ITEM -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question"
+              >Is Toolzya's paraphrasing tool free to use?</span
+            >
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Yes. Toolzya's paraphraser is free with reasonable usage limits.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>

@@ -1,0 +1,668 @@
+---
+type Mode = { label: string; value: string };
+
+const {
+  title = "Toolzya AI Tool",
+  description = "",
+  buttonLabel = "Generate",
+  placeholder = "Paste your text here…",
+  resultPlaceholder = "Your result will appear here.",
+  modes = null as Mode[] | null,
+  modeDescriptions = {},
+} = Astro.props;
+---
+
+<!-- TITLE -->
+<section class="text-center mb-12">
+  <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-[#0D1B2A]">
+    {title}
+  </h1>
+  <p class="mt-3 text-[#415A77] max-w-2xl mx-auto leading-relaxed">
+    {description}
+  </p>
+</section>
+
+<!-- MAIN WRAPPER CARD -->
+<section
+  class="max-w-5xl mx-auto bg-gradient-to-br from-white to-[#F7F9FB]
+         shadow-[0_6px_22px_rgba(0,0,0,0.06)] border border-[#E0E4EA]
+         rounded-2xl p-6 md:p-10"
+>
+  <!-- TOP BAR -->
+  <div
+    class="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-8"
+  >
+    <!-- MODE TITLE -->
+    <div>
+      <p class="text-sm font-semibold text-[#1B263B] mb-3">Mode</p>
+
+      <!-- RADIO BUTTONS -->
+      {
+        modes && (
+          <div class="flex flex-wrap gap-3">
+            {(modes as Mode[]).map((m: Mode, index: number) => (
+              <div class="relative group">
+                <label class="inline-flex items-center cursor-pointer">
+                  <input
+                    type="radio"
+                    name="mode"
+                    value={m.value}
+                    class="sr-only peer"
+                    checked={index === 0}
+                  />
+                  <span
+                    class="mode-btn px-5 py-2 rounded-full text-sm font-medium border border-[#C6D0DB]
+         bg-white text-[#1B263B] shadow-sm transition-all duration-150
+         hover:bg-[#EEF3F7]
+         peer-checked:bg-[#1B263B] peer-checked:text-white peer-checked:border-[#1B263B]
+         peer-checked:hover:bg-[#1B263B]"
+                  >
+                    {m.label}
+                  </span>
+                </label>
+                <div
+                  class="absolute left-1/2 -translate-x-1/2 top-full mt-2
+         bg-[#1B263B] text-white text-[11px] rounded-md shadow-lg
+         opacity-0 group-hover:opacity-100 pointer-events-none
+         transition duration-200 text-center z-20
+         px-3 py-2 whitespace-nowrap"
+                >
+                  {modeDescriptions[m.value] || "No description available"}
+
+                  <div
+                    class="absolute -top-1 left-1/2 -translate-x-1/2
+           w-3 h-3 bg-[#1B263B] rotate-45
+           opacity-0 group-hover:opacity-100 transition duration-200"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </div>
+
+  <!-- PERFECT-SYMMETRIC PANELS -->
+  <div
+    class="grid md:grid-cols-2 rounded-xl overflow-hidden border border-[#D7DFE8]
+         bg-white shadow-sm"
+  >
+    <!-- LEFT PANEL (INPUT) -->
+    <div class="p-6 border-r border-[#D7DFE8] flex flex-col justify-between">
+      <!-- HEADER -->
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-sm font-semibold text-[#1B263B]">Input</span>
+          <div class="flex gap-2 text-xs">
+            <!-- PASTE -->
+            <button
+              id="paste-btn"
+              class="px-3 py-1 rounded-md bg-[#E2E8F0] hover:bg-[#d4dbe6]
+                     transition flex items-center gap-1 active:scale-95 cursor-pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="h-3.5 w-3.5 opacity-70"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 
+                  0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 
+                  0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 
+                  0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 
+                  1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 
+                  2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 
+                  1.907-2.185a48.208 48.208 0 011.927-.184"
+                ></path>
+              </svg>
+              Paste
+            </button>
+
+            <!-- CLEAR -->
+            <button
+              id="clear-btn"
+              class="px-3 py-1 rounded-md bg-[#E2E8F0] hover:bg-[#d4dbe6]
+                     transition flex items-center gap-1 active:scale-95 cursor-pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="h-3.5 w-3.5 opacity-70"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                ></path>
+              </svg>
+              Clear
+            </button>
+          </div>
+        </div>
+
+        <!-- TEXTAREA -->
+        <textarea
+          id="input"
+          class="w-full min-h-[260px] rounded-lg border border-[#C6D0DB]/70
+                 bg-white px-4 py-3 text-sm text-[#1B263B] resize-none
+                 shadow-[inset_0_1px_4px_rgba(0,0,0,0.04)]
+                 focus:ring-2 focus:ring-[#415A77]/60 focus:outline-none"
+          placeholder={placeholder}></textarea>
+      </div>
+
+      <!-- FOOTER (BUTTON + COUNTER) -->
+      <div class="flex items-center justify-between mt-4 h-6">
+        <button
+          id="generate-btn"
+          class="px-7 py-2.5 rounded-xl bg-[#1B263B] text-white font-medium text-sm
+                 shadow-md hover:bg-[#0D1B2A] active:scale-[0.98] transition cursor-pointer"
+        >
+          {buttonLabel}
+        </button>
+        <div class="text-xs text-[#6B7280]">
+          <span id="word-count">0</span> / 500 words
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL (OUTPUT) -->
+    <div class="p-6 flex flex-col justify-between">
+      <!-- HEADER -->
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-sm font-semibold text-[#1B263B]">Output</span>
+        </div>
+        <div class="h-[3.5px]"></div>
+
+        <!-- OUTPUT BOX -->
+        <div
+          id="output"
+          class="w-full h-[260px] max-h-[260px] overflow-y-auto overflow-x-hidden
+         rounded-lg border border-dashed border-[#C6D0DB]
+         bg-[#FAFBFC] px-4 py-3 text-sm text-[#415A77]
+         shadow-[inset_0_1px_4px_rgba(0,0,0,0.03)] relative"
+        >
+          <div id="ai-progress"></div>
+
+          <div id="output-placeholder" class="opacity-60">
+            {resultPlaceholder}
+          </div>
+
+          <div id="output-text" class="whitespace-pre-wrap"></div>
+        </div>
+      </div>
+
+      <!-- FOOTER META (COPY + SENTENCE/WORLD) -->
+      <div
+        id="output-footer"
+        class="mt-4 h-6 text-xs text-[#6B7280] flex items-center justify-between"
+        style="opacity: 0; transition: opacity 0.25s ease;"
+      >
+        <!-- COPY BUTTON (muncul hanya jika sudah ada output) -->
+        <button
+          id="copy-btn"
+          class="px-3 py-1 rounded-md bg-[#E2E8F0] hover:bg-[#d4dbe6]
+                 transition active:scale-95 flex items-center gap-1 text-xs shadow-sm cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-3.5 w-3.5 opacity-70"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 
+                 0 012 2v2m-4 12h8a2 2 
+                 0 002-2v-6a2 2 
+                 0 00-2-2h-6a2 2 
+                 0 00-2 2v6a2 2 
+                 0 002 2z"
+            ></path>
+          </svg>
+          Copy
+        </button>
+
+        <span id="meta-text"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTNOTE -->
+  <div id="toast" class="toast">Copied!</div>
+</section>
+
+<style>
+  /* Smooth Mode Switch */
+  .mode-btn {
+    transition: all 0.25s ease;
+  }
+  .mode-btn:hover {
+    transform: translateY(-1px);
+  }
+  .mode-btn:active {
+    transform: translateY(0) scale(0.95);
+  }
+
+  .tooltip-arrow {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background: #1b263b;
+  }
+
+  #input {
+    max-height: 260px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    padding-right: 20px !important;
+  }
+  #input::-webkit-scrollbar {
+    width: 10px;
+  }
+  #input::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  #input::-webkit-scrollbar-thumb {
+    background: #c7cdd7;
+    border-radius: 8px;
+  }
+  #input::-webkit-scrollbar-thumb:hover {
+    background: #aeb4bd;
+  }
+  #input::-webkit-scrollbar,
+  #input::-webkit-scrollbar-thumb,
+  #input::-webkit-scrollbar-track {
+    cursor: default !important;
+  }
+  #output {
+    box-sizing: border-box;
+    padding-right: 20px;
+  }
+
+  #output::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  #output::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  #output::-webkit-scrollbar-thumb {
+    background: #c7cdd7;
+    border-radius: 8px;
+  }
+
+  #output::-webkit-scrollbar-thumb:hover {
+    background: #aeb4bd;
+  }
+
+  #output::-webkit-scrollbar,
+  #output::-webkit-scrollbar-thumb,
+  #output::-webkit-scrollbar-track {
+    cursor: default !important;
+  }
+
+  /* SOFT WORD LIMIT WARNING */
+  .warn-soft {
+    color: #d97706 !important;
+  }
+  .warn-hard {
+    color: #dc2626 !important;
+  }
+
+  .hidden-force {
+    display: none !important;
+  }
+
+  /* SHIMMER LOADING */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 40%, #f1f5f9 80%);
+    background-size: 200% 100%;
+    animation: shimmerAnim 1.5s infinite;
+  }
+
+  @keyframes shimmerAnim {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  /* --- PREMIUM DARK TOAST --- */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #1b263b;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.35s ease;
+    pointer-events: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Input error state */
+  .input-error {
+    border-color: #dc2626 !important;
+    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.15);
+    transition: 0.25s ease;
+  }
+
+  .shake {
+    animation: shakeAnim 0.3s ease;
+  }
+
+  @keyframes shakeAnim {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-3px);
+    }
+    50% {
+      transform: translateX(3px);
+    }
+    75% {
+      transform: translateX(-3px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  .button-disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+</style>
+
+<script is:inline>
+  const textarea = document.getElementById("input");
+  const wordCountEl = document.getElementById("word-count");
+  const maxWords = 500;
+
+  const clearBtn = document.getElementById("clear-btn");
+  clearBtn.style.display = "none";
+  const pasteBtn = document.getElementById("paste-btn");
+  const copyBtn = document.getElementById("copy-btn");
+  const generateBtn = document.getElementById("generate-btn");
+
+  const outputEl = document.getElementById("output");
+  const outputPlaceholder = document.getElementById("output-placeholder");
+  const outputTextEl = document.getElementById("output-text");
+
+  const outputFooter = document.getElementById("output-footer");
+  const metaText = document.getElementById("meta-text");
+
+  const toast = document.getElementById("toast");
+  const aiProgress = document.getElementById("ai-progress");
+
+  /* Simpan label asli button generate sekali di awal */
+  const originalLabel = generateBtn.textContent;
+
+  /* ------------------------- AUTO-RESIZE TEXTAREA ------------------------- */
+  textarea.addEventListener("input", () => {
+    textarea.style.height = "auto";
+    textarea.style.height = Math.min(textarea.scrollHeight, 260) + "px";
+
+    updateWordCounter();
+
+    // tampilkan/hilangkan tombol clear
+    if (textarea.value.trim().length > 0) {
+      clearBtn.style.display = "flex";
+    } else {
+      clearBtn.style.display = "none";
+    }
+  });
+
+  /* ------------------------- WORD COUNTER + WARNING ------------------------- */
+  function updateWordCounter() {
+    const text = textarea.value.trim();
+    const words = text ? text.split(/\s+/g).filter(Boolean).length : 0;
+
+    wordCountEl.textContent = words;
+
+    if (words > maxWords) {
+      wordCountEl.classList.add("warn-hard");
+      wordCountEl.classList.remove("warn-soft");
+    } else if (words > maxWords * 0.8) {
+      wordCountEl.classList.add("warn-soft");
+      wordCountEl.classList.remove("warn-hard");
+    } else {
+      wordCountEl.classList.remove("warn-soft", "warn-hard");
+    }
+  }
+
+  /* ---------------------------- CLEAR ------------------------------ */
+  clearBtn.onclick = () => {
+    textarea.value = "";
+    textarea.dispatchEvent(new Event("input"));
+  };
+
+  /* ---------------------------- PASTE ------------------------------ */
+  pasteBtn.onclick = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      textarea.value = text;
+      textarea.dispatchEvent(new Event("input"));
+    } catch (e) {
+      console.warn("Clipboard blocked:", e);
+    }
+  };
+
+  /* ---------------------------- COPY ------------------------------ */
+  copyBtn.onclick = () => {
+    const text = outputTextEl.innerText.trim();
+    if (!text) return;
+
+    navigator.clipboard.writeText(text);
+    showToast("Copied!");
+  };
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 1500);
+  }
+
+  /* --------------------- MODE BUTTON ANIMATION ---------------------- */
+  const modeButtons = document.querySelectorAll("label span");
+
+  modeButtons.forEach((btn) => {
+    btn.classList.add("mode-btn");
+
+    btn.addEventListener("click", () => {
+      modeButtons.forEach((b) => b.classList.remove("mode-btn-active"));
+      btn.classList.add("mode-btn-active");
+    });
+  });
+
+  /* ---------------------------- GENERATE --------------------------- */
+  // --- helper: ambil mode yang dipilih ---
+  function getSelectedMode() {
+    const el = document.querySelector('input[name="mode"]:checked');
+    return el ? el.value : null;
+  }
+
+  // --- wiring: pastikan klik span/label juga men-check input dan toggle visual ---
+  (function wireModeButtons() {
+    // pilih semua label yang mengandung radio (struktur: <label> <input type="radio"> <span>...</span> </label>)
+    const labels = document.querySelectorAll("label.inline-flex");
+    labels.forEach((label) => {
+      const input = label.querySelector('input[name="mode"]');
+      const span = label.querySelector("span");
+
+      if (!input || !span) return;
+
+      // kalau user klik span, set checked dan update class aktif
+      span.addEventListener("click", (e) => {
+        // set radio checked
+        input.checked = true;
+
+        // update visual class pada semua mode buttons
+        document
+          .querySelectorAll(".mode-btn")
+          .forEach((b) => b.classList.remove("mode-btn-active"));
+        span.classList.add("mode-btn-active");
+      });
+
+      // juga pastikan jika user klik label (area) input akan checked — ini menjaga fallback
+      label.addEventListener("click", () => {
+        // sedikit delay untuk memastikan checked state sudah ter-set oleh browser
+        setTimeout(() => {
+          // sync visual
+          document
+            .querySelectorAll(".mode-btn")
+            .forEach((b) => b.classList.remove("mode-btn-active"));
+          const checked = document.querySelector('input[name="mode"]:checked');
+          if (checked) {
+            const s = checked.parentElement?.querySelector("span");
+            if (s) s.classList.add("mode-btn-active");
+          }
+        }, 10);
+      });
+    });
+
+    // set class aktif untuk mode default (pertama) pada load
+    const first = document.querySelector('input[name="mode"]');
+    if (first && !document.querySelector(".mode-btn-active")) {
+      first.checked = true;
+      const s = first.parentElement?.querySelector("span");
+      if (s) s.classList.add("mode-btn-active");
+    }
+  })();
+
+  async function callParaphraseAPI(inputText, mode) {
+    const res = await fetch("/api/paraphraser", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ input: inputText, mode }),
+    });
+
+    // jika 400/422/500, bacakan response text supaya lebih jelas
+    if (!res.ok) {
+      const txt = await res.text().catch(() => "");
+      // coba parse JSON kalau ada
+      try {
+        const j = JSON.parse(txt || "{}");
+        throw new Error(j?.error || `HTTP ${res.status} ${res.statusText}`);
+      } catch {
+        throw new Error(txt || `HTTP ${res.status} ${res.statusText}`);
+      }
+    }
+
+    const json = await res.json();
+    return json;
+  }
+
+  generateBtn.onclick = async () => {
+    const text = textarea.value.trim();
+
+    // VALIDASI: kosong
+    if (!text) {
+      textarea.classList.add("input-error", "shake");
+      showToast("Input cannot be empty!");
+      setTimeout(() => textarea.classList.remove("shake"), 400);
+      setTimeout(() => textarea.classList.remove("input-error"), 1500);
+      return;
+    }
+
+    // VALIDASI: kata
+    const wordCount = text.split(/\s+/g).filter(Boolean).length;
+    if (wordCount > maxWords) {
+      textarea.classList.add("input-error", "shake");
+      showToast(`Input exceeds the maximum limit (${maxWords} words)!`);
+      setTimeout(() => textarea.classList.remove("shake"), 400);
+      setTimeout(() => textarea.classList.remove("input-error"), 1500);
+      return;
+    }
+
+    // Dapatkan selected mode
+    const mode = getSelectedMode() || "standard"; // fallback standard
+
+    // Pastikan mode termasuk yang valid (sama validasi di server)
+    const validModes = ["standard", "fluent", "creative"];
+    if (!validModes.includes(mode)) {
+      showToast("Invalid mode selected. Using standard.");
+    }
+
+    // UI: lock & loading
+    copyBtn.classList.add("hidden-force");
+    outputFooter.classList.add("hidden-force");
+    outputFooter.style.opacity = "0";
+    generateBtn.classList.add("button-disabled");
+    generateBtn.textContent = "Processing…";
+    outputPlaceholder.style.display = "none";
+    outputEl.classList.add("shimmer");
+    aiProgress.style.width = "10%";
+
+    // statistik
+    const sentences = text
+      .split(/[.!?]+/g)
+      .map((s) => s.trim())
+      .filter(Boolean).length;
+
+    try {
+      // Debug: log payload (console)
+      console.log("Sending payload:", { input: text, mode });
+
+      const result = await callParaphraseAPI(text, mode);
+
+      if (!result || !result.success) {
+        throw new Error(result?.error || "InvalidServerResponse");
+      }
+
+      const out = result.data?.output || "";
+
+      // Remove prompt echo if any already handled by server; just show
+      outputTextEl.innerText = out || "(No output)";
+
+      // show meta + copy
+      aiProgress.style.width = "100%";
+      copyBtn.classList.remove("hidden-force");
+      outputFooter.classList.remove("hidden-force");
+      outputFooter.style.opacity = "1";
+      metaText.textContent = `Sentences: ${sentences} | Words: ${wordCount}`;
+    } catch (err) {
+      console.error("Generate error:", err);
+      showToast("Generate error: " + (err.message || err));
+      outputTextEl.innerText = "(Error) See console for details.";
+    } finally {
+      outputEl.classList.remove("shimmer");
+      generateBtn.classList.remove("button-disabled");
+      generateBtn.textContent = originalLabel;
+      setTimeout(() => (aiProgress.style.width = "0%"), 250);
+    }
+  };
+</script>

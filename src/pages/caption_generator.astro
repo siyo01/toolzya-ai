@@ -1,0 +1,548 @@
+---
+// src/pages/caption_generator.astro
+import SEO from "../components/seo.astro";
+import MainLayout from "../layouts/mainlayout.astro";
+import ToolPage from "../components/toolpagegenerator.astro";
+
+const pageTitle = "AI Caption Generator - Create Variation Social Captions";
+const pageDescription =
+  "Generate short, platform-ready captions from a keyword or short prompt. Toolzya Caption Generator helps you get caption ideas quickly and safely.";
+const pageKeywords =
+  "caption generator, social media captions, instagram caption, tiktok caption, caption ideas";
+const canonical = "https://toolzya.com/caption_generator";
+
+// FAQ JSON-LD for this page (passed into seo.astro via extraLd)
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What does the Caption Generator do?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "It generates short caption ideas from a keyword or prompt to help you jumpstart social posts. Always review and adapt captions to match your voice.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is the caption tool free to use?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes — Toolzya's Caption Generator is free with reasonable usage limits to help keep the service stable for everyone.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I use the captions for commercial posts?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "You can use generated captions as drafts for commercial or personal posts, but you should verify suitability and any brand/legal requirements before publishing.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Will the caption tool keep my input private?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Toolzya does not store user inputs after processing. We still recommend not pasting sensitive personal or confidential information.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What types of captions work best?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Short prompts, keywords, or brief context produce the best caption ideas. Provide platform or tone hints if you need tailored styles.",
+      },
+    },
+  ],
+};
+---
+
+<!-- inject seo metadata + json-ld -->
+<SEO
+  slot="head"
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  canonical={canonical}
+  pageType="SoftwareApplication"
+  extraLd={[faqLd]}
+/>
+
+<head slot="head">
+  <style>
+    /* Remove default marker */
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    /* Prevent Alpine flicker */
+    [x-cloak] {
+      display: none !important;
+    }
+
+    /* FAQ styles (match other tool pages) */
+    .faq-item {
+      padding: 0;
+    }
+
+    .faq-summary {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      outline: none;
+      transition: background 0.25s ease;
+    }
+
+    .faq-summary:hover {
+      background: rgb(173, 202, 206);
+    }
+
+    .faq-question {
+      font-size: 15px;
+      font-weight: 500;
+      color: #1b263b;
+      text-align: left;
+    }
+
+    .faq-arrow {
+      width: 18px;
+      height: 18px;
+      stroke: #778da9;
+      transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .rotate-180 {
+      transform: rotate(180deg);
+    }
+
+    .faq-body-wrapper {
+      overflow: hidden;
+    }
+
+    .faq-body {
+      padding: 0 1.25rem 1rem 1.25rem;
+      font-size: 14px;
+      color: #415a77;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<MainLayout title={pageTitle} description={pageDescription}>
+  <ToolPage
+    title="AI Caption Generator"
+    description="Generate caption ideas using a keyword or short prompt."
+    buttonLabel="Create Caption"
+    tool="caption"
+    placeholder="Enter a topic, keyword or short description…"
+    resultPlaceholder="Your generated caption will appear here."
+    tones={[
+      { label: "Formal", value: "formal" },
+      { label: "Friendly", value: "friendly" },
+      { label: "Professional", value: "professional" },
+    ]}
+    toneDescriptions={{
+      formal: "Structured and polished wording for serious topics.",
+      friendly: "Warm, inviting, and conversational style.",
+      professional: "Clean, confident tone ideal for branding.",
+    }}
+  />
+
+  <!-- SEO CONTENT SECTION (matching transform tools style) -->
+  <section class="max-w-5xl mx-auto mt-20 mb-24 px-6 space-y-14">
+    <!-- Intro -->
+    <div class="text-center max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold text-[#0D1B2A] mb-3">
+        What Is a Caption Generator?
+      </h2>
+      <p class="text-[#415A77] leading-relaxed text-[15px]">
+        A caption generator creates short, shareable caption ideas from a
+        keyword or prompt. Toolzya Caption Generator helps you brainstorm
+        caption ideas for social posts. Use the suggestions as starting points
+        and customize them to fit your voice and platform.
+      </p>
+    </div>
+
+    <!-- 3-column benefits -->
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <!-- MOBILE: horizontal divider -->
+        <div aria-hidden="true" class="md:hidden mb-4 h-px w-full bg-[#0d3d42]">
+        </div>
+
+        <!-- DESKTOP: vertical divider -->
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 -translate-y-1/2
+           h-32 w-1 rounded-r-md
+           bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Save time
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Quickly generate multiple caption options so you can pick and refine
+            faster.
+          </p>
+        </div>
+      </div>
+
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <!-- MOBILE: horizontal divider -->
+        <div aria-hidden="true" class="md:hidden mb-4 h-px w-full bg-[#0d3d42]">
+        </div>
+
+        <!-- DESKTOP: vertical divider -->
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 -translate-y-1/2
+           h-32 w-1 rounded-r-md
+           bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Flexible tone
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Choose a tone (formal, friendly, professional) to match the platform
+            or audience.
+          </p>
+        </div>
+      </div>
+
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <!-- MOBILE: horizontal divider -->
+        <div aria-hidden="true" class="md:hidden mb-4 h-px w-full bg-[#0d3d42]">
+        </div>
+
+        <!-- DESKTOP: vertical divider -->
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 -translate-y-1/2
+           h-32 w-1 rounded-r-md
+           bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Platform-aware
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Use brief platform hints to guide length and style for Instagram,
+            TikTok, or other networks.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Good use cases vs limitations -->
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Can Do -->
+      <div class="bg-white border border-[#E0E4EA] rounded-2xl p-6 shadow-sm">
+        <h3 class="text-lg font-semibold text-[#1B263B] mb-4">
+          What Toolzya Caption Generator can do
+        </h3>
+
+        <div class="space-y-4 text-[14px] text-[#415A77] leading-relaxed">
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: text -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M4 6h16M4 12h16M4 18h10"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Generate short caption ideas for social media posts from keywords
+              or brief prompts.
+            </p>
+          </div>
+
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: sliders -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M4 21v-7M4 10V3M12 21V3M20 21v-9M20 8V3"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Adjust tone and length to better match different platforms and
+              audiences.
+            </p>
+          </div>
+
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: lightbulb -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M9 18h6M10 22h4"></path>
+                <path
+                  d="M12 3a6 6 0 00-4 10c0 2 1 3 1 3h6s1-1 1-3a6 6 0 00-4-10z"
+                ></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Provide multiple caption variations to spark ideas and
+              inspiration.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Limitations -->
+      <div class="bg-white border border-[#E0E4EA] rounded-2xl p-6 shadow-sm">
+        <h3 class="text-lg font-semibold text-[#1B263B] mb-4">
+          Things to Keep in Mind
+        </h3>
+
+        <div class="space-y-4 text-[14px] text-[#415A77] leading-relaxed">
+          <div class="flex gap-3 items-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: shield with exclamation -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 2l8 4v6c0 5-3.6 9.7-8 11-4.4-1.3-8-6-8-11V6l8-4z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path d="M12 9v4" stroke-linecap="round" stroke-linejoin="round"
+                ></path>
+                <path
+                  d="M12 17h.01"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Meaning may shift with stronger rewriting; review carefully.
+            </p>
+          </div>
+
+          <div class="flex gap-3 items-start mt-4">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: magnifying glass (review) -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></circle>
+                <path
+                  d="M21 21l-4.3-4.3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Not a substitute for human editing on sensitive or technical text.
+            </p>
+          </div>
+
+          <div class="flex gap-3 items-start mt-4">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: document + check (review before publish) -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M9 2h6l3 3v13a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+                <path
+                  d="M9 13l2 2 4-4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Always verify originality and suitability before publishing.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="mt-16" x-data>
+      <h2 class="text-2xl font-bold text-[#0D1B2A] text-center mb-6">
+        Frequently Asked Questions
+      </h2>
+
+      <div
+        class="max-w-3xl mx-auto bg-white/70 backdrop-blur-sm border border-[#E0E4EA] rounded-2xl shadow-sm divide-y divide-[#E0E4EA] overflow-hidden"
+      >
+        <!-- FAQ 1 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question">What length of prompt works best?</span>
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Short keywords or a brief context (1–6 words) work well. Add
+              platform or tone notes to get more tailored captions.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question"
+              >Can I request captions for a specific platform?</span
+            >
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Yes, include the platform (e.g., Instagram, TikTok) in your prompt
+              for better length and style suggestions.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question">Are captions unique?</span>
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              The generator creates fresh combinations based on your prompt, but
+              for important originality checks use a dedicated
+              plagiarism/originality tool.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question">Is the tool free and private?</span>
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Toolzya does not store user inputs after processing. We recommend
+              not pasting sensitive personal or confidential information.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question"
+              >How many captions will be generated?</span
+            >
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              The generator typically returns several caption options so you can
+              pick and refine. The exact number may vary depending on UI
+              settings.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>

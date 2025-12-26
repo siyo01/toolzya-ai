@@ -1,0 +1,551 @@
+---
+// src/pages/cta_generator.astro
+import SEO from "../components/seo.astro";
+import MainLayout from "../layouts/mainlayout.astro";
+import ToolPage from "../components/toolpagegenerator.astro";
+
+const pageTitle = "AI CTA Generator - Call to Action Ideas";
+const pageDescription =
+  "Generate clear call-to-action (CTA) ideas from keywords or short prompts. Toolzya CTA Generator helps you create action-focused phrases for websites, ads, and landing pages.";
+const pageKeywords =
+  "cta generator, call to action generator, cta ideas, marketing cta, button text ideas, landing page cta";
+const canonical = "https://toolzya.com/cta_generator";
+
+// FAQ JSON-LD for this page (passed into seo.astro via extraLd)
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is a CTA Generator?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "A CTA (Call-to-Action) generator creates action-oriented phrases based on keywords or short prompts to help guide users toward the next step.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What kind of input works best?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Short keywords or a brief description of your goal, such as signup, download, or contact, usually produce the best CTA ideas.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I use the generated CTAs for ads or websites?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Generated CTAs can be used as drafts for websites, ads, landing pages, or emails. Always review and adjust them before publishing.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is the CTA Generator free to use?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Toolzya CTA Generator is free to use with reasonable limits to keep the service available for everyone.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Does Toolzya store my input?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Toolzya does not store user input after processing. Avoid entering sensitive or confidential information.",
+      },
+    },
+  ],
+};
+---
+
+<!-- inject seo metadata + json-ld -->
+<SEO
+  slot="head"
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  canonical={canonical}
+  pageType="SoftwareApplication"
+  extraLd={[faqLd]}
+/>
+
+<head slot="head">
+  <style>
+    /* Remove default marker */
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    /* Prevent Alpine flicker */
+    [x-cloak] {
+      display: none !important;
+    }
+
+    /* FAQ styles (match other tool pages) */
+    .faq-item {
+      padding: 0;
+    }
+
+    .faq-summary {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      outline: none;
+      transition: background 0.25s ease;
+    }
+
+    .faq-summary:hover {
+      background: rgb(173, 202, 206);
+    }
+
+    .faq-question {
+      font-size: 15px;
+      font-weight: 500;
+      color: #1b263b;
+      text-align: left;
+    }
+
+    .faq-arrow {
+      width: 18px;
+      height: 18px;
+      stroke: #778da9;
+      transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .rotate-180 {
+      transform: rotate(180deg);
+    }
+
+    .faq-body-wrapper {
+      overflow: hidden;
+    }
+
+    .faq-body {
+      padding: 0 1.25rem 1rem 1.25rem;
+      font-size: 14px;
+      color: #415a77;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<MainLayout title={pageTitle} description={pageDescription}>
+  <ToolPage
+    title="AI CTA Generator"
+    description="Generate clear call-to-action ideas from a short context or goal."
+    buttonLabel="Generate CTA"
+    tool="cta"
+    placeholder="Enter your goal, product, or action…"
+    resultPlaceholder="Your generated call-to-action will appear here."
+    tones={[
+      { label: "Direct", value: "direct" },
+      { label: "Persuasive", value: "persuasive" },
+      { label: "Soft", value: "soft" },
+    ]}
+    toneDescriptions={{
+      direct: "Clear and straightforward CTAs focused on immediate action.",
+      persuasive: "Encouraging CTAs designed to motivate clicks or engagement.",
+      soft: "Gentler CTAs suitable for informative or trust-building content.",
+    }}
+  />
+
+  <!-- SEO CONTENT SECTION (matching transform tools style) -->
+  <section class="max-w-5xl mx-auto mt-20 mb-24 px-6 space-y-14">
+    <!-- Intro -->
+    <div class="text-center max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold text-[#0D1B2A] mb-3">
+        What Is a CTA Generator?
+      </h2>
+      <p class="text-[#415A77] leading-relaxed text-[15px]">
+        A CTA (Call-to-Action) generator helps you create short, clear action
+        phrases that encourage users to take the next step. Toolzya CTA
+        Generator provides CTA ideas you can adapt for websites, ads, landing
+        pages, emails, or promotions.
+      </p>
+    </div>
+
+    <!-- 3-column benefits -->
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <!-- MOBILE: horizontal divider -->
+        <div aria-hidden="true" class="md:hidden mb-4 h-px w-full bg-[#0d3d42]">
+        </div>
+
+        <!-- DESKTOP: vertical divider -->
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 -translate-y-1/2
+           h-32 w-1 rounded-r-md
+           bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Save time
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Generate CTA ideas quickly instead of writing and rewriting action
+            phrases from scratch.
+          </p>
+        </div>
+      </div>
+
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <!-- MOBILE: horizontal divider -->
+        <div aria-hidden="true" class="md:hidden mb-4 h-px w-full bg-[#0d3d42]">
+        </div>
+
+        <!-- DESKTOP: vertical divider -->
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 -translate-y-1/2
+           h-32 w-1 rounded-r-md
+           bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Clear messaging
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Get concise CTA wording designed to communicate actions clearly and
+            reduce confusion for readers.
+          </p>
+        </div>
+      </div>
+
+      <div class="relative bg-transparent px-4 py-2 md:py-6">
+        <!-- MOBILE: horizontal divider -->
+        <div aria-hidden="true" class="md:hidden mb-4 h-px w-full bg-[#0d3d42]">
+        </div>
+
+        <!-- DESKTOP: vertical divider -->
+        <div
+          aria-hidden="true"
+          class="hidden md:block absolute left-6 top-1/2 -translate-y-1/2
+           h-32 w-1 rounded-r-md
+           bg-gradient-to-b from-[#0d3d42] to-[#0d3d42]/70"
+        >
+        </div>
+        <div class="ml-12 md:ml-16">
+          <h4 class="text-base font-semibold" style="color:#0d3d42;">
+            Multi-use
+          </h4>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#415A77]">
+            Use CTA ideas across websites, landing pages, ads, emails, or social
+            media campaigns.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Good use cases vs limitations -->
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Can Do -->
+      <div class="bg-white border border-[#E0E4EA] rounded-2xl p-6 shadow-sm">
+        <h3 class="text-lg font-semibold text-[#1B263B] mb-4">
+          What Toolzya CTA Generator can do
+        </h3>
+
+        <div class="space-y-4 text-[14px] text-[#415A77] leading-relaxed">
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: click action -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M3 3l7 16 2-6 6-2L3 3z"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Generate call-to-action phrases based on keywords or short
+              prompts.
+            </p>
+          </div>
+
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: A/B variations -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 3v18"></path>
+                <path d="M12 12l-5-5"></path>
+                <path d="M12 12l5-5"></path>
+                <path d="M12 12l-5 5"></path>
+                <path d="M12 12l5 5"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Provide multiple CTA variations for inspiration and testing.
+            </p>
+          </div>
+
+          <div class="flex gap-3 item-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#E8F7FF] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: marketing CTA -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M3 11l18-5v12l-18-5v-2z"></path>
+                <path d="M7 15v4a2 2 0 002 2h1"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Support different use cases such as websites, ads, emails, and
+              landing pages
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Limitations -->
+      <div class="bg-white border border-[#E0E4EA] rounded-2xl p-6 shadow-sm">
+        <h3 class="text-lg font-semibold text-[#1B263B] mb-4">
+          Things to Keep in Mind
+        </h3>
+
+        <div class="space-y-4 text-[14px] text-[#415A77] leading-relaxed">
+          <div class="flex gap-3 items-start">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: editable draft -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z"
+                ></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Generated CTAs are suggestions and may require editing.
+            </p>
+          </div>
+
+          <div class="flex gap-3 items-start mt-4">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: context layers -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 2l10 5-10 5L2 7l10-5z"></path>
+                <path d="M2 12l10 5 10-5"></path>
+                <path d="M2 17l10 5 10-5"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Effectiveness depends on audience, design, and placement.
+            </p>
+          </div>
+
+          <div class="flex gap-3 items-start mt-4">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: no guaranteed result -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="12" cy="12" r="8"></circle>
+                <path d="M4 4l16 16"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Not a guarantee of clicks, signups, or conversions.
+            </p>
+          </div>
+
+          <div class="flex gap-3 items-start mt-4">
+            <div
+              class="w-7 h-7 shrink-0 bg-[#EEF0F7] rounded-full flex items-center justify-center"
+            >
+              <!-- Icon: brand voice -->
+              <svg
+                class="w-4 h-4 text-[#1B263B]"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M11 5l6-3v20l-6-3H5a2 2 0 01-2-2V9a2 2 0 012-2h6z"
+                ></path>
+                <path d="M19 9a4 4 0 010 6"></path>
+              </svg>
+            </div>
+            <p class="leading-tight">
+              Always review wording to ensure it matches your brand voice
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="mt-16" x-data>
+      <h2 class="text-2xl font-bold text-[#0D1B2A] text-center mb-6">
+        Frequently Asked Questions
+      </h2>
+
+      <div
+        class="max-w-3xl mx-auto bg-white/70 backdrop-blur-sm border border-[#E0E4EA] rounded-2xl shadow-sm divide-y divide-[#E0E4EA] overflow-hidden"
+      >
+        <!-- FAQ 1 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question">What is a CTA Generator?</span>
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              A CTA generator creates call-to-action ideas based on keywords or
+              short prompts to help guide users toward the next step.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question">What kind of input works best?</span>
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Short keywords or a brief description of the goal (for example:
+              signup, download, contact) usually work best.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question"
+              >Can I use the CTAs for ads or websites?</span
+            >
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Yes. The generated CTAs can be used as drafts for websites, ads,
+              landing pages, or emails. Always review before publishing.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question"
+              >Is the CTA Generator free and private?</span
+            >
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              Yes. Toolzya does not store user inputs after processing. Avoid
+              entering sensitive information.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item" x-data="{ open: false }">
+          <button class="faq-summary" @click="open = !open">
+            <span class="faq-question"
+              >Will these CTAs guarantee conversions?</span
+            >
+            <svg
+              class="faq-arrow"
+              :class="{ 'rotate-180': open }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-width="2" d="M6 9l6 6 6-6"></path>
+            </svg>
+          </button>
+          <div x-show="open" x-collapse>
+            <div class="faq-body">
+              No. CTAs are suggestions only. Results depend on many factors such
+              as audience, design, and overall messaging.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>

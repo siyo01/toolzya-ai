@@ -1,6 +1,8 @@
 ---
 import MainLayout from "../layouts/mainlayout.astro";
 import Seo from "../components/seo.astro";
+import { Image } from "astro:assets";
+import toolzyaLogo from "../assets/toolzyaicon.png";
 
 const pageTitle = "Toolzya — Free AI Content Generator Tools";
 const pageDescription =
@@ -26,10 +28,13 @@ const ogImage = "https://toolzya.com/og/toolzyaicon.png";
       class="relative flex flex-col items-center text-center mt-0 md:-mt-16 lg:-mt-22"
     >
       <!-- logo -->
-      <img
-        src="/assets/toolzyaicon.png"
+      <Image
+        src={toolzyaLogo}
         alt="Toolzya Logo"
         class="w-full max-w-[240px] sm:max-w-[300px] md:max-w-[360px] lg:max-w-[480px] h-auto opacity-90 mb-6"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
       />
 
       <!-- main title -->

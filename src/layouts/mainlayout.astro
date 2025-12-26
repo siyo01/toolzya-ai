@@ -92,6 +92,9 @@ const { title = "Toolzya" } = Astro.props;
               src="/assets/toolzyaicononly.svg"
               alt="Toolzya Logo"
               class="w-8 h-8"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
             />
             Toolzya
           </a>
@@ -128,7 +131,14 @@ const { title = "Toolzya" } = Astro.props;
           class="flex items-center justify-between px-4 py-4 border-b border-gray-100"
         >
           <div class="flex items-center gap-2">
-            <img src="/assets/toolzyaicononly.svg" class="w-7" alt="Toolzya" />
+            <img
+              src="/assets/toolzyaicononly.svg"
+              class="w-7"
+              alt="Toolzya"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
             <span class="font-bold text-lg">Toolzya</span>
           </div>
 

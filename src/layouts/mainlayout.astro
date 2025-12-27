@@ -10,6 +10,18 @@ const { title = "Toolzya" } = Astro.props;
   <head>
     <!-- allow pages to inject SEO/head tags -->
     <slot name="head" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7W5EHZGZR6"
+    ></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-7W5EHZGZR6");
+    </script>
 
     <!-- Fallbacks / global head items (kept minimal) -->
     <meta charset="utf-8" />
